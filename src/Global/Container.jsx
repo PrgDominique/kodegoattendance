@@ -1,0 +1,32 @@
+import Grid from '@mui/material/Unstable_Grid2';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Sidebase from './Sidebar';
+
+
+const Containers = () => {
+    return (
+        <>
+        <CssBaseline />
+        <Grid container>
+            <Grid lg={3}>
+            <Container>
+                <Sidebase />
+      </Container>
+
+            </Grid>
+            <Grid lg={9}>
+            <Container >
+        <Box sx={{ bgcolor: 'green', height: '100vh' }} />
+      </Container>
+
+            </Grid>
+
+        </Grid>
+
+        </>
+
+    )
+}
+export default Containers;
