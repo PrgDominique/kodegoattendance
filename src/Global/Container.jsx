@@ -18,7 +18,7 @@ const Containers = () => {
             </Grid>
             <Grid lg={9}>
             <Container >
-        <Box sx={{ bgcolor: 'green', height: '100vh' }} />
+        <Box sx={{ bgcolor: 'gray', height: '100vh' }} />
       </Container>
 
             </Grid>
