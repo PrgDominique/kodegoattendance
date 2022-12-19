@@ -6,6 +6,9 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -53,7 +56,6 @@ const Sidebar = () => {
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
@@ -114,6 +116,30 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
+<Item
+              title="Attendance History"
+              to="/attendance-history"
+              icon={<HistoryOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Settings"
+              to="/settings"
+              icon={<SettingsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Logout"
+              icon={<LogoutOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}          
+            />
+
+
+
           </Box>
         </Menu>
       </ProSidebar>
