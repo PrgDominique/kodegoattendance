@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import Topbar from "./views/global/Topbar";
 import Sidebar from "./views/global/Sidebar";
 import Dashboard from "./views/dashboard";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -17,6 +18,7 @@ function App() {
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
+            <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
             </Routes>
