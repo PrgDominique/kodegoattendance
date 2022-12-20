@@ -12,8 +12,8 @@ const DateTime = () => {
 
   return (
    
-    <Typography>
-      {newtime.toLocaleTimeString()} {newtime.toLocaleDateString()}
+    <Typography variant="h5">
+      {newtime.toLocaleTimeString()} | {newtime.toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}
     </Typography>
    
   );
