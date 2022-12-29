@@ -8,7 +8,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
+import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -81,6 +81,8 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
+          {/* test */}
+
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
@@ -108,6 +110,8 @@ const Sidebar = () => {
             </Box>
           )}
 
+          {/* end test */}
+
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
@@ -116,11 +120,10 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-<Item
+            <Item
               title="Attendance History"
               to="/attendance-history"
-              icon={<HistoryOutlinedIcon />}
+              icon={<ReportOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
