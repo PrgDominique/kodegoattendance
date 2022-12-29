@@ -9,6 +9,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
+import LoginIcon from '@mui/icons-material/Login';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -117,7 +118,15 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-<Item
+            <Item
+              title="Login"
+              to="/Login"
+              icon={<LoginIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
               title="Attendance History"
               to="/attendance-history"
               icon={<HistoryOutlinedIcon />}
