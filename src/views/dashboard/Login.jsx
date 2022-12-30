@@ -47,17 +47,17 @@ const Login = () => {
                   label="Password"
                   placeholder="Password"
                   variant="outlined"
-                //   InputProps={{
-                //     endAdornment:(
-                //         <InputAdornment position="end">
-                //             <IconButton 
-                //             aria-label="toggle password"
-                //             edge="end">
-                //             <VisibilityIcon/>
-                //             </IconButton>
-                //         </InputAdornment>
-                //     )
-                //   }}
+                  // InputProps={{
+                  //   endAdornment:(
+                  //       <InputAdornment position="end">
+                  //           <IconButton 
+                  //           aria-label="toggle password"
+                  //           edge="end">
+                  //           <VisibilityIcon/>
+                  //           </IconButton>
+                  //       </InputAdornment>
+                  //   )
+                  // }}
                 />
               </Grid>
               <Grid item>
