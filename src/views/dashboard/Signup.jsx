@@ -2,6 +2,7 @@ import { TextField, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import { spacing } from '@mui/system';
 
 
 const Signup = () => {
@@ -13,7 +14,7 @@ return (
 <Container fixed>
 <h1>Sign up</h1>
 <h4>Let's get you all setup so you can verify your personal account and begin setting up your profile.</h4>
-<Grid container spacing={2}>
+<Grid container spacing={5}>
         <Grid item xs={6}>
                 <h4>First Name</h4>
                 <TextField
@@ -22,6 +23,8 @@ return (
                   label="First Name"
                   placeholder="Type your first name"
                   variant="outlined"
+                  className="m-5"
+                  
                 />
                 <h4>Username</h4>
                 <TextField
@@ -43,7 +46,6 @@ return (
                 <h4>Batch No.</h4>
                 <TextField
                   type="text"
-                  fullWidth
                   label="Batch No."
                   placeholder="Type your batch no."
                   variant="outlined"
