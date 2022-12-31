@@ -1,13 +1,29 @@
 import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import { useState } from "react";
+import { ColorModeContext, useMode } from "../../theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import Sidebar from "../global/Sidebar";
+import Topbar from "../global/Topbar";
 
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [themes, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
   return (
+    <ColorModeContext.Provider value={colorMode}>
+    <ThemeProvider theme={themes}>
+    <CssBaseline />
+
+    <div className="app">
+        <Sidebar isSidebar={isSidebar} />
+        <main className="content">
+          <Topbar setIsSidebar={setIsSidebar} />
+
     <Box m="100px" ml="35%">  
       <Box display="flex" justifyItems="center" alignItems="center">
         <Box>
@@ -40,6 +56,10 @@ const Dashboard = () => {
         </Box>
       </Box>
     </Box>
+    </main>
+        </div>
+            </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 };
 

@@ -1,15 +1,33 @@
 import { Box, Toolbar, Typography, useTheme, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from "@mui/material";
+import { useState } from "react";
+import { ColorModeContext, useMode } from "../../theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import Sidebar from "../global/Sidebar";
+import Topbar from "../global/Topbar";
+
 import { tokens } from "../../theme";
 import { PieChart } from "../../components/PieChart";
 import { BarChart } from "../../components/BarChart";
+
 
 
 const AttendanceHistory = () =>{
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    const [themes, colorMode] = useMode();
+    const [isSidebar, setIsSidebar] = useState(true);
+
     return(
     <>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={themes}>
+      <CssBaseline />
+
+      <div className="app">
+          <Sidebar isSidebar={isSidebar} />
+          <main className="content">
+            <Topbar setIsSidebar={setIsSidebar} />
           <Toolbar>
               <Typography variant="h1" sx={{mb:3}}>
                   Attendance History
@@ -61,7 +79,12 @@ const AttendanceHistory = () =>{
                   </Table>
               </TableContainer>
             </Box>      
+            </main>
+        </div>
+            </ThemeProvider>
+    </ColorModeContext.Provider>
     </>
+
     )
 }
 

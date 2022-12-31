@@ -86,7 +86,7 @@ const Login = () => {
                 <h4 style={{
                     color: "#2196f3"
                 }}>
-                    <Link href="#" underline="none">
+                    <Link href="/signup" underline="none">
                         Sign up
                     </Link></h4>
               </Grid>
