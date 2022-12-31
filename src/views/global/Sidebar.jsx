@@ -124,21 +124,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Item
-              title="Login"
-              to="/Login"
-              icon={<LoginIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="Signup"
-              to="/Signup"
-              icon={<AppRegistrationIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+           
 
             
 
