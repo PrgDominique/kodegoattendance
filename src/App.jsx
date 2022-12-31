@@ -7,6 +7,11 @@ import Settings from "./views/dashboard/Settings";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import AttendanceHistory from "./views/dashboard/AttendanceHistory";
+import Login from "./views/dashboard/Login";
+import Signup from "./views/dashboard/Signup";
+
+
+
 
 
 
@@ -26,6 +31,8 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/attendance-history" element={<AttendanceHistory/>} />
               <Route path="/Settings" element={<Settings />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Signup" element={<Signup />} />
             </Routes>
           </main>
         </div>
