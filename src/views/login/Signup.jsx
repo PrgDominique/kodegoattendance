@@ -3,17 +3,67 @@ import { tokens } from "../../theme";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { spacing } from '@mui/system';
+import { UserAuth } from "../../context/AuthContext";
+import { useState } from "react";
+import 'firebase/firestore';
+import { useNavigate } from "react-router-dom";
 
 
 const Signup = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const { createUser } = UserAuth()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [username, setUsername] = useState('')
+    const [batchNo, setBatchNo] = useState('')
+    const [error, setError] = useState('')
+    const navigate = useNavigate()
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+
+        if (password !== confirmPassword) {
+          console.error('Passwords do not match');
+            return
+        }
+
+        if (!firstName || !lastName || !email || !password || !confirmPassword || !username || !batchNo) {
+          console.error("All fields are required.");
+          return;
+        }
+
+        try {
+            const user = await createUser(email, password)
+            console.log('Successfully created new user');
+            await firebase.firestore.collection('users').add({
+          uid: user.uid,
+          email: user.email,
+          firstName,
+          lastName,
+          username,
+          batchNo,
+          
+        })
+        navigate('/dashboard')
+        } catch(e) {
+            setError(e.message)
+            console.log(e.message);
+
+        }
+      }
+
+
 
 return (
  //Your code here
 <Container fixed>
 <h1>Sign up</h1>
 <h4>Let's get you all setup so you can verify your personal account and begin setting up your profile.</h4>
+<form onSubmit={handleSubmit}>
 <Grid container spacing={5}>
         <Grid item xs={6}>
                 <h4>First Name</h4>
@@ -24,6 +74,7 @@ return (
                   placeholder="Type your first name"
                   variant="outlined"
                   className="m-5"
+                  onChange={(e) => setFirstName(e.target.value)}
                   
                 />
                 <h4>Username</h4>
@@ -33,6 +84,7 @@ return (
                   label="Username"
                   placeholder="Type your username"
                   variant="outlined"
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <h4>Password</h4>
                 <TextField
@@ -41,6 +93,7 @@ return (
                   label="Password"
                   placeholder="Type your password"
                   variant="outlined"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <h4>Batch No.</h4>
@@ -49,6 +102,7 @@ return (
                   label="Batch No."
                   placeholder="Type your batch no."
                   variant="outlined"
+                  onChange={(e) => setBatchNo(e.target.value)}
                 />
         </Grid>
         <Grid item xs={6}>
@@ -59,6 +113,7 @@ return (
                   label="Last Name"
                   placeholder="Type your last name"
                   variant="outlined"
+                  onChange={(e) => setLastName(e.target.value)}
                 />
                 <h4>Email</h4>
                 <TextField
@@ -67,6 +122,7 @@ return (
                   label="Email"
                   placeholder="Type your email"
                   variant="outlined"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <h4>Confirm Password</h4>
                 <TextField
@@ -75,12 +131,16 @@ return (
                   label="Password"
                   placeholder="Retype your password to confirm"
                   variant="outlined"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 
+                <button>Sign Up</button>
+                {error && <p>{error}</p>}
         </Grid>
 
           
       </Grid>
+</form>
 </Container>
  
 )

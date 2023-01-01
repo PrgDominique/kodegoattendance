@@ -6,6 +6,11 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { spacing } from '@mui/system';
 import Link from '@mui/material/Link';
+import { useState } from "react";
+
+import { ColorModeContext, useMode } from "../../theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import Topbar from "../global/Topbar";
 
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 // import InputAdornment from '@mui/material/InputAdornment';
@@ -14,8 +19,17 @@ const Login = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [themes, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
+
   return (
     <div>
+       <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={themes}>
+      <CssBaseline />
+      <main className="content">
+            <Topbar setIsSidebar={setIsSidebar} />
+
       <Container maxWidth="sm">
         <Grid
           container
@@ -94,6 +108,9 @@ const Login = () => {
           </Paper>
         </Grid>
       </Container>
+      </main>
+    </ThemeProvider>
+    </ColorModeContext.Provider>
     </div>
   );
 };
