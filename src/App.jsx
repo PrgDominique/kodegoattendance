@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./views/dashboard";
+import Dashboard from "./views/dashboard/index";
 import Settings from "./views/dashboard/Settings";
 import AttendanceHistory from "./views/dashboard/AttendanceHistory";
 import Login from "./views/login/Login";
