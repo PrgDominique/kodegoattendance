@@ -4,6 +4,7 @@ import Settings from "./views/dashboard/Settings";
 import AttendanceHistory from "./views/dashboard/AttendanceHistory";
 import Login from "./views/login/Login";
 import Signup from "./views/signup/Signup";
+import Layout from "./Layout";
 import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
