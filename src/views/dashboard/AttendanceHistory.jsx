@@ -4,15 +4,13 @@ import { PieChart } from "../../components/PieChart";
 import { BarChart } from "../../components/BarChart";
 
 
-
 const AttendanceHistory = () =>{
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-
     return(
     <>
- <Toolbar>
+          <Toolbar>
               <Typography variant="h1" sx={{mb:3}}>
                   Attendance History
               </Typography>
