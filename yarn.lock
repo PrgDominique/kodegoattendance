@@ -181,7 +181,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.19.0"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.6", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.20.6", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.20.6"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.20.6.tgz"
   integrity sha512-Q+8MqP7TiHMWzSfwiJwXCjyf4GYA4Dgw3emg/7xmwsdLJOZUp+nMqcOwOzzYheuM1rhDu8FSj2l0aoMygEuXuA==
@@ -802,7 +802,11 @@
   dependencies:
     "@babel/runtime" "^7.20.6"
 
+<<<<<<< HEAD
 "@mui/material@^5.0.0", "@mui/material@^5.11.0":
+=======
+"@mui/material@^5.0.0", "@mui/material@^5.11.0", "@mui/material@^5.4.1":
+>>>>>>> origin/testing
   version "5.11.0"
   dependencies:
     "@babel/runtime" "^7.20.6"
@@ -835,7 +839,11 @@
     csstype "^3.1.1"
     prop-types "^15.8.1"
 
+<<<<<<< HEAD
 "@mui/system@^5.11.0":
+=======
+"@mui/system@^5.11.0", "@mui/system@^5.4.1":
+>>>>>>> origin/testing
   version "5.11.0"
   dependencies:
     "@babel/runtime" "^7.20.6"
@@ -852,7 +860,11 @@
   resolved "https://registry.npmjs.org/@mui/types/-/types-7.2.3.tgz"
   integrity sha512-tZ+CQggbe9Ol7e/Fs5RcKwg/woU+o8DCtOnccX6KmbBc7YrfqMYEYuaIcXHuhpT880QwNkZZ3wQwvtlDFA2yOw==
 
+<<<<<<< HEAD
 "@mui/utils@^5.11.0":
+=======
+"@mui/utils@^5.10.3", "@mui/utils@^5.11.0":
+>>>>>>> origin/testing
   version "5.11.0"
   dependencies:
     "@babel/runtime" "^7.20.6"
@@ -860,6 +872,17 @@
     "@types/react-is" "^16.7.1 || ^17.0.0"
     prop-types "^15.8.1"
     react-is "^18.2.0"
+
+"@mui/x-data-grid@^5.17.17":
+  version "5.17.17"
+  resolved "https://registry.npmjs.org/@mui/x-data-grid/-/x-data-grid-5.17.17.tgz"
+  integrity sha512-03XwKeZ5q93CUf7EdJTBfqf3y3cd0vOEH1dXnusk0NaNROW/uBcnwTix9/1D7hhlCNs+Unq98Qffe2W/sR++Xg==
+  dependencies:
+    "@babel/runtime" "^7.18.9"
+    "@mui/utils" "^5.10.3"
+    clsx "^1.2.1"
+    prop-types "^15.8.1"
+    reselect "^4.1.6"
 
 "@popperjs/core@^2.11.6", "@popperjs/core@^2.4.0":
   version "2.11.6"
@@ -1483,7 +1506,11 @@ react-chartjs-2@^5.1.0:
   resolved "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-5.1.0.tgz"
   integrity sha512-Gt76b7+p7nMQq0MvkWfUSNAzIm/TLAnAO32zIpSzrQyc9JWRbVCtq8qOzPJmfpDzPcIJ7Y9Gp5g+VdTRrGITsQ==
 
+<<<<<<< HEAD
 "react-dom@^16.3.0 || 17", "react-dom@^17.0.0 || ^18.0.0", react-dom@^18.2.0, react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0:
+=======
+"react-dom@^16.3.0 || 17", "react-dom@^17.0.0 || ^18.0.0", "react-dom@^17.0.2 || ^18.0.0", react-dom@^18.2.0, react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0:
+>>>>>>> origin/testing
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -1549,7 +1576,11 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+<<<<<<< HEAD
 "react@^16.3.0 || 17", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", react@^18.2.0, react@>=16.6.0, react@>=16.8, react@>=16.8.0:
+=======
+"react@^16.3.0 || 17", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0", react@^18.2.0, react@>=16.6.0, react@>=16.8, react@>=16.8.0:
+>>>>>>> origin/testing
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -1566,6 +1597,14 @@ require-directory@^2.1.1:
   resolved "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz"
   integrity sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==
 
+<<<<<<< HEAD
+=======
+reselect@^4.1.6:
+  version "4.1.7"
+  resolved "https://registry.npmjs.org/reselect/-/reselect-4.1.7.tgz"
+  integrity sha512-Zu1xbUt3/OPwsXL46hvOOoQrap2azE7ZQbokq61BQfiXvhewsKDwhMeZjTX9sX0nvw1t/U5Audyn1I9P/m9z0A==
+
+>>>>>>> origin/testing
 resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz"

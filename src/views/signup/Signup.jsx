@@ -10,7 +10,10 @@ import { useNavigate } from "react-router-dom";
 
 
 const Signup = () => {
+<<<<<<< HEAD
     const theme = useTheme();
+=======
+>>>>>>> origin/testing
     const { createUser } = UserAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
