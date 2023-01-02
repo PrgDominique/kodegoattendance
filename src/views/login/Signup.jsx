@@ -74,6 +74,7 @@ return (
                   placeholder="Type your first name"
                   variant="outlined"
                   className="m-5"
+                  value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   
                 />
@@ -84,6 +85,7 @@ return (
                   label="Username"
                   placeholder="Type your username"
                   variant="outlined"
+                  value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <h4>Password</h4>
@@ -93,6 +95,7 @@ return (
                   label="Password"
                   placeholder="Type your password"
                   variant="outlined"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
 
@@ -102,6 +105,7 @@ return (
                   label="Batch No."
                   placeholder="Type your batch no."
                   variant="outlined"
+                  value={batchNo}
                   onChange={(e) => setBatchNo(e.target.value)}
                 />
         </Grid>
@@ -113,6 +117,7 @@ return (
                   label="Last Name"
                   placeholder="Type your last name"
                   variant="outlined"
+                  value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
                 <h4>Email</h4>
@@ -122,6 +127,7 @@ return (
                   label="Email"
                   placeholder="Type your email"
                   variant="outlined"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <h4>Confirm Password</h4>
@@ -131,6 +137,7 @@ return (
                   label="Password"
                   placeholder="Retype your password to confirm"
                   variant="outlined"
+                  value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 
