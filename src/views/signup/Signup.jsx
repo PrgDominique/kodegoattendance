@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
     const { createUser } = UserAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

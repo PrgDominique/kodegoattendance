@@ -1,35 +1,17 @@
 import { TextField, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
 import { Container, Grid, Paper } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import { spacing } from '@mui/system';
-import Link from '@mui/material/Link';
-import { useState } from "react";
-
-import { ColorModeContext, useMode } from "../../theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import Topbar from "../global/Topbar";
+import { spacing } from "@mui/system";
+import Link from "@mui/material/Link";
 
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 // import InputAdornment from '@mui/material/InputAdornment';
 
 const Login = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
-  const [themes, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
-
   return (
     <div>
-       <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={themes}>
-      <CssBaseline />
-      <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-
       <Container maxWidth="sm">
         <Grid
           container
@@ -64,7 +46,7 @@ const Login = () => {
                   // InputProps={{
                   //   endAdornment:(
                   //       <InputAdornment position="end">
-                  //           <IconButton 
+                  //           <IconButton
                   //           aria-label="toggle password"
                   //           edge="end">
                   //           <VisibilityIcon/>
@@ -75,18 +57,18 @@ const Login = () => {
                 />
               </Grid>
               <Grid item>
-                <Button 
-                    style={{
+                <Button
+                  style={{
                     borderRadius: 5,
                     backgroundColor: "#2196f3",
                     padding: "18px, 36px",
                     fontsize: "18px",
-                    fontWeight: "bold"
-                }}
-                    variant="contained"
-                    href="#contained-buttons"
-                    sx={{ mt: 3,
-                          width: 100}}>
+                    fontWeight: "bold",
+                  }}
+                  variant="contained"
+                  href="#contained-buttons"
+                  sx={{ mt: 3, width: 100 }}
+                >
                   LOGIN
                 </Button>
               </Grid>
@@ -97,20 +79,20 @@ const Login = () => {
                 />
               </Grid>
               <Grid item>
-                <h4 style={{
-                    color: "#2196f3"
-                }}>
-                    <Link href="/signup" underline="none">
-                        Sign up
-                    </Link></h4>
+                <h4
+                  style={{
+                    color: "#2196f3",
+                  }}
+                >
+                  <Link href="/signup" underline="none">
+                    Sign up
+                  </Link>
+                </h4>
               </Grid>
             </Grid>
           </Paper>
         </Grid>
       </Container>
-      </main>
-    </ThemeProvider>
-    </ColorModeContext.Provider>
     </div>
   );
 };
