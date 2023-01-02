@@ -6,6 +6,7 @@ import Login from "./views/login/Login";
 import Signup from "./views/signup/Signup";
 import Layout from "./Layout";
 import { AuthContextProvider } from "./context/AuthContext";
+import Layout from "./Layout";
 
 function App() {
 
