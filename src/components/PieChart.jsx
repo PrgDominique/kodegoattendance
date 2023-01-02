@@ -86,6 +86,41 @@ const tableData = [
     "time_in": "8:51am",
     "time_out": "6:00pm",
     "status": "present"
+  },
+  {
+    "id": 6,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 7,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 8,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 9,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 10,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
   }
 ]
 

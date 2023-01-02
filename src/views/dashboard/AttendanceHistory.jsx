@@ -2,6 +2,7 @@ import { Box, Toolbar, Typography, useTheme, TableContainer, Table, TableHead, T
 import { tokens } from "../../theme";
 import { PieChart } from "../../components/PieChart";
 import { BarChart } from "../../components/BarChart";
+import DataTable from "../../components/DataTable";
 
 
 const AttendanceHistory = () =>{
@@ -30,11 +31,18 @@ const AttendanceHistory = () =>{
                 </Typography>
                 <BarChart />
               </Box>
-             
+              
             </Box>
             
           </Box>
-          <Box sx={{mt:5}}>
+          
+            <DataTable />
+          
+         
+         
+          
+          {/* <Box sx={{mt:5, pb:2}}>
+           
               <Typography variant="h3" style={{ marginLeft:25, marginBottom:15}}>Student Time-in & Time-out History</Typography>
               <TableContainer component={Paper} style={{marginLeft:45, width: 900, borderRadius: '10px'}}>
                   <Table aria-label='simple-table'>
@@ -60,7 +68,7 @@ const AttendanceHistory = () =>{
                       </TableBody>
                   </Table>
               </TableContainer>
-            </Box>      
+            </Box>       */}
     </>
     )
 }
@@ -100,6 +108,41 @@ const tableData = [
   },
   {
     "id": 5,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 6,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 7,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 8,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 9,
+    "date": "12/05/22",
+    "time_in": "8:51am",
+    "time_out": "6:00pm",
+    "status": "present"
+  },
+  {
+    "id": 10,
     "date": "12/05/22",
     "time_in": "8:51am",
     "time_out": "6:00pm",

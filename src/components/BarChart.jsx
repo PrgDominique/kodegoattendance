@@ -59,40 +59,75 @@ function status(table) {
   return [ late, absent];
   }
 
-const tableData = [
-  {
-    "id": 1,
-    "date": "12/01/22",
-    "time_in": "8:59am",
-    "time_out": "6:00pm",
-    "status": "present"
-  },
-  {
-    "id": 2,
-    "date": "12/02/22",
-    "time_in": "9:15am",
-    "time_out": "6:00pm",
-    "status": "late"
-  },
-  {
-    "id": 3,
-    "date": "12/03/22",
-    "time_in": "",
-    "time_out": "",
-    "status": "absent"
-  },
-  {
-    "id": 4,
-    "date": "12/04/22",
-    "time_in": "9:01am",
-    "time_out": "6:00pm",
-    "status": "late"
-  },
-  {
-    "id": 5,
-    "date": "12/05/22",
-    "time_in": "8:51am",
-    "time_out": "6:00pm",
-    "status": "present"
-  }
-]
+  const tableData = [
+    {
+      "id": 1,
+      "date": "12/01/22",
+      "time_in": "8:59am",
+      "time_out": "6:00pm",
+      "status": "present"
+    },
+    {
+      "id": 2,
+      "date": "12/02/22",
+      "time_in": "9:15am",
+      "time_out": "6:00pm",
+      "status": "late"
+    },
+    {
+      "id": 3,
+      "date": "12/03/22",
+      "time_in": "",
+      "time_out": "",
+      "status": "absent"
+    },
+    {
+      "id": 4,
+      "date": "12/04/22",
+      "time_in": "9:01am",
+      "time_out": "6:00pm",
+      "status": "late"
+    },
+    {
+      "id": 5,
+      "date": "12/05/22",
+      "time_in": "8:51am",
+      "time_out": "6:00pm",
+      "status": "present"
+    },
+    {
+      "id": 6,
+      "date": "12/05/22",
+      "time_in": "8:51am",
+      "time_out": "6:00pm",
+      "status": "present"
+    },
+    {
+      "id": 7,
+      "date": "12/05/22",
+      "time_in": "8:51am",
+      "time_out": "6:00pm",
+      "status": "present"
+    },
+    {
+      "id": 8,
+      "date": "12/05/22",
+      "time_in": "8:51am",
+      "time_out": "6:00pm",
+      "status": "present"
+    },
+    {
+      "id": 9,
+      "date": "12/05/22",
+      "time_in": "8:51am",
+      "time_out": "6:00pm",
+      "status": "present"
+    },
+    {
+      "id": 10,
+      "date": "12/05/22",
+      "time_in": "8:51am",
+      "time_out": "6:00pm",
+      "status": "present"
+    }
+  ]

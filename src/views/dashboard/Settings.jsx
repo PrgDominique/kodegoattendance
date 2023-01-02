@@ -1,5 +1,6 @@
-import { Typography,useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
+
 
 const Settings = () => {
     const theme = useTheme();
@@ -7,7 +8,7 @@ const Settings = () => {
 
 return (
  //Your code here
- <Typography>Users Settings</Typography>
+     <Typography></Typography>
 )
 }
 
