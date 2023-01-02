@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import { spacing } from '@mui/system';
 import { UserAuth } from "../../context/AuthContext";
 import { useState } from "react";
-import 'firebase/firestore';
+
 import { useNavigate } from "react-router-dom";
 
 
