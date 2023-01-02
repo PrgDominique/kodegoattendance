@@ -4,14 +4,17 @@ import Settings from "./views/dashboard/Settings";
 import AttendanceHistory from "./views/dashboard/AttendanceHistory";
 import Login from "./views/login/Login";
 import Signup from "./views/signup/Signup";
-import { AuthContextProvider } from "./context/AuthContext";
 import Layout from "./Layout";
+import { AuthContextProvider } from "./context/AuthContext";
+
 
 function App() {
 
 
   return (
-    <AuthContextProvider>
+    <>
+      <div>
+      <AuthContextProvider>
 
 
             <Routes>
@@ -24,7 +27,12 @@ function App() {
               <Route path="/Settings" element={<Settings />} /> 
               </Route>               
             </Routes>
-    </AuthContextProvider>
+      </AuthContextProvider>
+       
+      </div>
+  
+    </>
+
    
   );
 }

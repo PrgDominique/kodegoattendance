@@ -2,6 +2,7 @@ import { Box, Toolbar, Typography, useTheme, TableContainer, Table, TableHead, T
 import { tokens } from "../../theme";
 import { PieChart } from "../../components/PieChart";
 import { BarChart } from "../../components/BarChart";
+import DataTable from "../../components/DataTable";
 
 
 
@@ -32,37 +33,10 @@ const AttendanceHistory = () =>{
                 </Typography>
                 <BarChart />
               </Box>
-             
             </Box>
-            
           </Box>
-          <Box sx={{mt:5}}>
-              <Typography variant="h3" style={{ marginLeft:25, marginBottom:15}}>Student Time-in & Time-out History</Typography>
-              <TableContainer component={Paper} style={{marginLeft:45, width: 900, borderRadius: '10px'}}>
-                  <Table aria-label='simple-table'>
-                      <TableHead>
-                          <TableRow>
-                              <TableCell>Date</TableCell>
-                              <TableCell>Time in</TableCell>
-                              <TableCell>Time out</TableCell>
-                              <TableCell>Status</TableCell>
-                          </TableRow>
-                      </TableHead>
-                      <TableBody>
-                          {
-                              tableData.map(row=>(
-                                  <TableRow key={row.id}>
-                                      <TableCell>{row.date}</TableCell>                                
-                                      <TableCell>{row.time_in}</TableCell>                                
-                                      <TableCell>{row.time_out}</TableCell>                                                                 
-                                      <TableCell>{row.status}</TableCell>                                 
-                                  </TableRow>
-                              ))
-                          }
-                      </TableBody>
-                  </Table>
-              </TableContainer>
-            </Box>      
+          <DataTable />
+          
     </>
     )
 }
