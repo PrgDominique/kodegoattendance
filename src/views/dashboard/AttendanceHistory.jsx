@@ -12,8 +12,7 @@ const AttendanceHistory = () =>{
 
     return(
     <>
-
-          <Toolbar>
+ <Toolbar>
               <Typography variant="h1" sx={{mb:3}}>
                   Attendance History
               </Typography>
@@ -65,7 +64,6 @@ const AttendanceHistory = () =>{
               </TableContainer>
             </Box>      
     </>
-
     )
 }
 
