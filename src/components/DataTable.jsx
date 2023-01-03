@@ -19,6 +19,9 @@ function DataTable() {
   const getData = () => {
     return 
   }
+  // const getDatainfo = () => {
+  //   return {dataload.TimeIn}
+  // }
 
   useEffect(() => {
     const getUsers = async () => {
@@ -41,6 +44,8 @@ function DataTable() {
       {dataload.map((data) => (
         <div>
           <h1>{data.TimeIn}</h1>
+          <h1>{data.TimeOut}</h1>
+          <h1>{data.Status}</h1>
         </div>
       ))}
     </>

@@ -12,6 +12,7 @@ import { getFirestore } from "firebase/firestore";
 const FirebaseConfig = {
   apiKey: "AIzaSyCDIovx_HQXk1FZIBBcwDZjKP6kpYvq7JA",
   authDomain: "attendance-9c18b.firebaseapp.com",
+  databaseURL: "https://attendance-9c18b-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "attendance-9c18b",
   storageBucket: "attendance-9c18b.appspot.com",
   messagingSenderId: "161562708716",
