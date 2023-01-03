@@ -12,6 +12,7 @@ import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import Logo from "./Logo";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -74,9 +75,7 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  Kodego Attendance
-                </Typography>
+               <Logo />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>

@@ -4,10 +4,10 @@ import { Container, Grid, Paper } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import { spacing } from '@mui/system';
+// import { spacing } from '@mui/system';
 import Link from '@mui/material/Link';
 import { useState } from "react";
-
+import Logo from "../global/Logo";
 import { ColorModeContext, useMode } from "../../theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "../global/Topbar";
@@ -24,12 +24,12 @@ const Login = () => {
 
   return (
     <div>
-       <ColorModeContext.Provider value={colorMode}>
+      <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={themes}>
       <CssBaseline />
       <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-
+            {/* <Topbar setIsSidebar={setIsSidebar} /> */}
+            <Logo />
       <Container maxWidth="sm">
         <Grid
           container
@@ -40,6 +40,7 @@ const Login = () => {
         >
           <Paper elevation={5} sx={{ padding: 4 }}>
             <Grid container direction="column" spacing={0.5}>
+              
               <Grid item>
                 <h1>Log in</h1>
               </Grid>
