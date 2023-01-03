@@ -1,11 +1,11 @@
 import { Typography,useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 
-
-const studentInfo = [  {    firstname: "John",    lastname: "Doe", birthday: "April 19, 2002", mobilenumber: "09123456789", email: "zannbuce@gmail.com", password: "a********p" }];
+const studentInfo = [  {    firstname: "John",    lastname: "Doe", birthday: "December 19, 1900", mobilenumber: "09123456789", email: "johndoe@gmail.com", password: "a********p" }];
 
 const studentName = studentInfo.map((student) => {
   return student.firstname, student.lastname, student.birthday, student.mobilenumber, student.email, student.password
@@ -23,7 +23,21 @@ const Settings = () => {
 <div>
 
     <Box>
-      
+
+
+      <Box sx={{
+      backgroundcolor: 'primary-main',
+      color: 'white',
+      height: '100px',
+      width: '100px',
+      padding: '29px',
+      '&:hover': {
+        backgroundcolor: 'primary.main',
+      },
+    }}
+    />
+
+
 
     <Typography>{studentInfo.map(student => {
       
@@ -74,6 +88,10 @@ const Settings = () => {
         defaultValue={student.password}
         />
         </div>
+
+        <Box component="span" sx={{ p: 3, border: '1px dashed grey' }}>
+      <Button>Test Button</Button>
+        </Box>
 
         </Box>
         </div>
