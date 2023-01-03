@@ -1,35 +1,50 @@
-import { DataGrid } from '@mui/x-data-grid'
-import { useState, useEffect } from 'react'
-import { Box } from '@mui/material'
-
+import { DataGrid } from "@mui/x-data-grid";
+import { useState, useEffect } from "react";
+import { Box } from "@mui/material";
+import { db } from "../firebase/FirebaseConfig";
+import { collection, getDocs, onSnapshot, doc } from "firebase/firestore";
 
 const columns = [
-  { field: 'id', headerName: 'ID'},
-  { field: 'name', headerName: 'Name', width:200},
-  { field: 'username', headerName: 'Username', width:180},
-  { field: 'email', headerName: 'Email', width:300}
-]
+  { field: "id", headerName: "ID" },
+  { field: "name", headerName: "Name", width: 200 },
+  { field: "username", headerName: "Username", width: 180 },
+  { field: "email", headerName: "Email", width: 300 },
+];
 
+function DataTable() {
+  const [tableData, setTableData] = useState([]);
+  const [dataload, setDataLoad] = useState([]);
 
-function DataTable(){
+  const userCollectionRef = collection(db, "Attendance");
+  const getData = () => {
+    return 
+  }
 
-  const [tableData, setTableData] = useState([])
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(userCollectionRef);
+      setDataLoad(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
 
-  useEffect(()=>{
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((data) => data.json())
-      .then((data) => setTableData(data))
-  })
+    const unsubscribe = onSnapshot(userCollectionRef, (snapshot) => {
+      setDataLoad(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return () => unsubscribe();
+  }, []);
 
-  return(
-    <Box sx={{height:371, width:'70%', ml:6, mt:2, boxShadow: 5}}>
-      <DataGrid 
-        rows={tableData}
-        columns={columns}
-        pageSize={5}
-      />
-    </Box>
-  )
+  return (
+    <>
+      <Box sx={{ height: 371, width: "70%", ml: 6, mt: 2, boxShadow: 5 }}>
+        <DataGrid rows={dataload} columns={columns} pageSize={5} />
+      </Box>
+      {dataload.map((data) => (
+        <div>
+          <h1>{data.TimeIn}</h1>
+        </div>
+      ))}
+    </>
+  );
 }
 
-export default DataTable
+export default DataTable;
