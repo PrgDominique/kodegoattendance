@@ -1,17 +1,43 @@
 import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import ScheduleIcon from '@mui/icons-material/Schedule';
-
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import { db } from "../../firebase/FirebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
+import { auth } from "../../firebase/FirebaseConfig";
+import { useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [error, setError] = useState('')
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userID = auth.currentUser.uid;
+      await addDoc(collection(db, "attendance"), {
+        id: userID,
+        TimeIn: new Date().toLocaleTimeString(),
+        TimeOut: null,
+        Status: null,
+      });
+      console.log("Successfully time in");
+    } catch (e) {
+      setError(e.message);
+      console.log(e.message);
+    }
+  };
+
+
 
   return (
-    <Box m="100px" ml="35%">  
+    <Box m="100px" ml="35%">
       <Box display="flex" justifyItems="center" alignItems="center">
         <Box>
           <Button
+            onClick={handleSubmit}
             sx={{
               backgroundColor: colors.greenAccent[700],
               color: colors.grey[100],

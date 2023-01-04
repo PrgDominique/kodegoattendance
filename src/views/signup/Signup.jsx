@@ -39,7 +39,9 @@ const Signup = () => {
         try {
             const user = await createUser(email, password)
             console.log('Successfully created new user');
-            await addDoc(collection(db, 'attendance'), {
+           const userID = user.user.uid
+            await addDoc(collection(db, 'users' ), {
+          userID,
           email,
           firstName,
           lastName,
@@ -47,7 +49,7 @@ const Signup = () => {
           batchNo,
           
         })
-        navigate('/dashboard')
+        navigate('/login')
         } catch(e) {
             setError(e.message)
             console.log(e.message);
