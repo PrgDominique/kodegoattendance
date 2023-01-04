@@ -5,7 +5,8 @@ import Grid from '@mui/material/Grid';
 import { spacing } from '@mui/system';
 import { UserAuth } from "../../context/AuthContext";
 import { useState } from "react";
-
+import { db } from "../../firebase/FirebaseConfig"
+import {collection, addDoc} from "firebase/firestore"
 import { useNavigate } from "react-router-dom";
 
 
@@ -20,6 +21,7 @@ const Signup = () => {
     const [batchNo, setBatchNo] = useState('')
     const [error, setError] = useState('')
     const navigate = useNavigate()
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -37,9 +39,8 @@ const Signup = () => {
         try {
             const user = await createUser(email, password)
             console.log('Successfully created new user');
-            await firebase.firestore.collection('users').add({
-          uid: user.uid,
-          email: user.email,
+            await addDoc(collection(db, 'attendance'), {
+          email,
           firstName,
           lastName,
           username,
