@@ -2,7 +2,7 @@ import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import { db } from "../../firebase/FirebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc} from "firebase/firestore";
 import { auth } from "../../firebase/FirebaseConfig";
 import { useState } from "react";
 
@@ -12,16 +12,17 @@ const Dashboard = () => {
   const [error, setError] = useState('')
 
 
-  const handleSubmit = async (e) => {
+  const timeIn = async (e) => {
     e.preventDefault();
 
     try {
       const userID = auth.currentUser.uid;
       await addDoc(collection(db, "attendance"), {
-        id: userID,
-        TimeIn: new Date().toLocaleTimeString(),
-        TimeOut: null,
-        Status: null,
+        user_id: userID,
+        timein: new Date().toLocaleTimeString(),
+        timeout: null,
+        status: null,
+        date: new Date().toLocaleDateString(),
       });
       console.log("Successfully time in");
     } catch (e) {
@@ -30,14 +31,12 @@ const Dashboard = () => {
     }
   };
 
-
-
   return (
     <Box m="100px" ml="35%">
       <Box display="flex" justifyItems="center" alignItems="center">
         <Box>
           <Button
-            onClick={handleSubmit}
+            onClick={timeIn}
             sx={{
               backgroundColor: colors.greenAccent[700],
               color: colors.grey[100],
@@ -51,7 +50,7 @@ const Dashboard = () => {
             Time In
           </Button>
 
-          <Button
+          <Button 
             sx={{
               backgroundColor: colors.redAccent[700],
               color: colors.grey[100],
