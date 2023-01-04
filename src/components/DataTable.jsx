@@ -41,13 +41,7 @@ function DataTable() {
       <Box sx={{ height: 371, width: "70%", ml: 6, mt: 2, boxShadow: 5 }}>
         <DataGrid rows={dataload} columns={columns} pageSize={5} />
       </Box>
-      {dataload.map((data) => (
-        <div>
-          <h1>{data.TimeIn}</h1>
-          <h1>{data.TimeOut}</h1>
-          <h1>{data.Status}</h1>
-        </div>
-      ))}
+      
     </>
   );
 }

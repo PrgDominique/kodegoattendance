@@ -1,30 +1,48 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
+import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
+import { UserAuth } from "../../context/AuthContext";
+
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const { user, logout } = UserAuth();
+const navigate = useNavigate();
+
+const handleLogout = async () => {
+  try {
+    await logout();
+    navigate("/login");
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
   return (
-    <MenuItem
-      active={selected === title}
-      style={{
-        color: colors.grey[100],
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
+    <>
+      <MenuItem
+        active={selected === title}
+        style={{
+          color: colors.grey[100],
+        }}
+        onClick={title === "Logout" ? handleLogout : () => setSelected(title)}
+        icon={icon}
+      >
+        <Typography>{title}</Typography>
+        <Link to={to} />
+      </MenuItem>
+    </>
   );
 };
 
@@ -138,11 +156,8 @@ const Sidebar = () => {
               title="Logout"
               icon={<LogoutOutlinedIcon />}
               selected={selected}
-              setSelected={setSelected}          
+              setSelected={setSelected}
             />
-
-
-
           </Box>
         </Menu>
       </ProSidebar>

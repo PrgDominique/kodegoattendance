@@ -5,11 +5,35 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { spacing } from "@mui/system";
 import Link from "@mui/material/Link";
+import { useNavigate } from "react-router-dom";
+import { UserAuth } from "../../context/AuthContext";
+import { useState } from "react";
 
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 // import InputAdornment from '@mui/material/InputAdornment';
 
 const Login = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { signIn } = UserAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const user = await signIn(email, password);
+      console.log("Successfully logged in");
+      navigate("/dashboard");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   return (
     <div>
       <Container maxWidth="sm">
@@ -21,6 +45,7 @@ const Login = () => {
           style={{ minHeight: "80vh" }}
         >
           <Paper elevation={5} sx={{ padding: 4 }}>
+            <form onSubmit={handleSubmit}>
             <Grid container direction="column" spacing={0.5}>
               <Grid item>
                 <h1>Log in</h1>
@@ -33,6 +58,7 @@ const Login = () => {
                   label="Username"
                   placeholder="Email address"
                   variant="outlined"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item>
@@ -43,6 +69,7 @@ const Login = () => {
                   label="Password"
                   placeholder="Password"
                   variant="outlined"
+                  onChange={(e) => setPassword(e.target.value)}
                   // InputProps={{
                   //   endAdornment:(
                   //       <InputAdornment position="end">
@@ -66,7 +93,7 @@ const Login = () => {
                     fontWeight: "bold",
                   }}
                   variant="contained"
-                  href="#contained-buttons"
+                  type="submit"
                   sx={{ mt: 3, width: 100 }}
                 >
                   LOGIN
@@ -90,6 +117,7 @@ const Login = () => {
                 </h4>
               </Grid>
             </Grid>
+            </form>
           </Paper>
         </Grid>
       </Container>
