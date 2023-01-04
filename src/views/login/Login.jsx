@@ -5,13 +5,10 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { spacing } from "@mui/system";
 import Link from "@mui/material/Link";
-<<<<<<< HEAD
 import Logo from "../global/Logo";
-=======
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { useState } from "react";
->>>>>>> d074dd6d8553f88d00bf14da0163df0a4703bb96
 
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 // import InputAdornment from '@mui/material/InputAdornment';
