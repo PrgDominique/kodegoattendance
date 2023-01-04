@@ -16,12 +16,7 @@ function DataTable() {
   const [dataload, setDataLoad] = useState([]);
 
   const userCollectionRef = collection(db, "Attendance");
-  const getData = () => {
-    return 
-  }
-  // const getDatainfo = () => {
-  //   return {dataload.TimeIn}
-  // }
+
 
   useEffect(() => {
     const getUsers = async () => {

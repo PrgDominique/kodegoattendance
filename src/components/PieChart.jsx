@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { useState } from 'react'
-
+import { db } from "../firebase/FirebaseConfig";
+import { collection, getDocs, onSnapshot, doc } from "firebase/firestore";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export function PieChart(){
+
+  const userCollectionRef = collection(db, "attendance");
+  const [dataload, setDataLoad] = useState([]);
+
+
+
+
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(userCollectionRef);
+      setDataLoad(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+
+    const unsubscribe = onSnapshot(userCollectionRef, (snapshot) => {
+      setDataLoad(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return () => unsubscribe();
+  }, []);
+
   const [ userData, setUserData] = useState({
     labels : ['Present', 'Lates', 'Absences'],
    
@@ -34,6 +56,8 @@ export function PieChart(){
       }
     }
   }
+
+
   return <Pie data={userData} options={options}/>
 }
 
