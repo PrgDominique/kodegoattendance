@@ -1,32 +1,37 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
-import { db } from "../firebase/FirebaseConfig";
+import { db, auth } from "../firebase/FirebaseConfig";
 import { collection, getDocs, onSnapshot, doc } from "firebase/firestore";
 
+
 const columns = [
-  { field: "id", headerName: "ID" },
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "username", headerName: "Username", width: 180 },
-  { field: "email", headerName: "Email", width: 300 },
+  { field: "TimeIn", headerName: "TimeIn", width: 200 },
+  { field: "TimeOut", headerName: "TimeOut", width: 180 },
+  { field: "Status", headerName: "Status", width: 300 },
+  { field: "date", headerName: "Date", width: 300 },
+
 ];
 
 function DataTable() {
   const [tableData, setTableData] = useState([]);
   const [dataload, setDataLoad] = useState([]);
+ 
 
-  const userCollectionRef = collection(db, "Attendance");
+
+  const userCollectionRef = collection(db, "attendance");
 
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(userCollectionRef);
-      setDataLoad(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const userID = auth.currentUser.uid;
+      setDataLoad(data.docs.map((doc) => ({ ...doc.data(), id: userID })));
     };
     getUsers();
 
     const unsubscribe = onSnapshot(userCollectionRef, (snapshot) => {
-      setDataLoad(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setDataLoad(snapshot.docs.map((doc) => ({ ...doc.data(), id: userID })));
     });
     return () => unsubscribe();
   }, []);
