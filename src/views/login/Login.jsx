@@ -5,6 +5,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { spacing } from "@mui/system";
 import Link from "@mui/material/Link";
+import Logo from "../global/Logo";
 
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 // import InputAdornment from '@mui/material/InputAdornment';
@@ -12,6 +13,7 @@ import Link from "@mui/material/Link";
 const Login = () => {
   return (
     <div>
+      
       <Container maxWidth="sm">
         <Grid
           container
@@ -20,8 +22,11 @@ const Login = () => {
           justifyContent="center"
           style={{ minHeight: "80vh" }}
         >
+          
+<Logo />
           <Paper elevation={5} sx={{ padding: 4 }}>
             <Grid container direction="column" spacing={0.5}>
+            
               <Grid item>
                 <h1>Log in</h1>
               </Grid>

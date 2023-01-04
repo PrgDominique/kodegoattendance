@@ -7,14 +7,14 @@ const Logo = () => {
     return(
         <AppBar position="static">
         <Container>
-        <center><img src="https://i.ibb.co/bgKPDgx/kodego-logo.png" alt="kodego-logo" border="0" width="180"  height="auto"/></center>
+        <center><img src="https://i.ibb.co/bgKPDgx/kodego-logo.png" alt="kodego-logo" border="0" width="120"  height="auto"/></center>
         <Typography
-        variant="h5"
+        variant="h6"
         align="center"
 
         sx={{
           fontWeight: 700,
-          color: 'inherit',
+          
           textDecoration: 'none',
           mb: 1
          
