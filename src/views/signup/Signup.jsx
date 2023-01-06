@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Signup = () => {
     const { createUser } = UserAuth()
     const [email, setEmail] = useState('')
+    const [errpassword, setErrPassword] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -28,18 +29,22 @@ const Signup = () => {
 
         if (password !== confirmPassword) {
           console.error('Passwords do not match');
+          setErrPassword('Passwords do not match')
             return
         }
 
         if (!firstName || !lastName || !email || !password || !confirmPassword || !username || !batchNo) {
           console.error("All fields are required.");
+          setError('All fields are required')
           return;
         }
 
         try {
             const user = await createUser(email, password)
             console.log('Successfully created new user');
-            await addDoc(collection(db, 'attendance'), {
+           const userID = user.user.uid
+            await addDoc(collection(db, 'users' ), {
+          userID,
           email,
           firstName,
           lastName,
@@ -47,13 +52,15 @@ const Signup = () => {
           batchNo,
           
         })
-        navigate('/dashboard')
+        navigate('/login')
         } catch(e) {
             setError(e.message)
             console.log(e.message);
 
         }
       }
+
+      
 
 
 
@@ -72,6 +79,7 @@ return (
                   label="First Name"
                   placeholder="Type your first name"
                   variant="outlined"
+                  {...(error && { error: true, helperText: error }) }
                   className="m-5"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
@@ -84,6 +92,7 @@ return (
                   label="Username"
                   placeholder="Type your username"
                   variant="outlined"
+                  {...(error && { error: true, helperText: error }) }
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -94,6 +103,7 @@ return (
                   label="Password"
                   placeholder="Type your password"
                   variant="outlined"
+                  {...(errpassword && { error: true, helperText: errpassword }) }
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -104,6 +114,7 @@ return (
                   label="Batch No."
                   placeholder="Type your batch no."
                   variant="outlined"
+                  {...(error && { error: true, helperText: error }) }
                   value={batchNo}
                   onChange={(e) => setBatchNo(e.target.value)}
                 />
@@ -116,6 +127,7 @@ return (
                   label="Last Name"
                   placeholder="Type your last name"
                   variant="outlined"
+                  {...(error && { error: true, helperText: error }) }
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -126,6 +138,7 @@ return (
                   label="Email"
                   placeholder="Type your email"
                   variant="outlined"
+                  {...(error && { error: true, helperText: error }) }
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -136,12 +149,12 @@ return (
                   label="Password"
                   placeholder="Retype your password to confirm"
                   variant="outlined"
+                  {...(errpassword && { error: true, helperText: errpassword }) }
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 
                 <button>Sign Up</button>
-                {error && <p>{error}</p>}
         </Grid>
 
           

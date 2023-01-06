@@ -31,6 +31,7 @@ const Login = () => {
       console.log("Successfully logged in");
       navigate("/dashboard");
     } catch (e) {
+      setError(e.message);
       console.log(e.message);
     }
   };
@@ -122,6 +123,7 @@ const Login = () => {
                 </h4>
               </Grid>
             </Grid>
+            { error && <h4>Your email or password is incorrect</h4> }
             </form>
           </Paper>
         </Grid>
