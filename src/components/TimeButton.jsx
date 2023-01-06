@@ -16,7 +16,7 @@ const columns = [
 ];
 
 
-function DataTable() {
+function TimeButton() {
   const [dataload, setDataLoad] = useState([]);
   const [error, setError] = useState('')
 
@@ -33,11 +33,11 @@ function DataTable() {
     getAttendance();
 
     const unsubscribe = onSnapshot(query(collection(db, "attendance"), where("user_id", "==", auth.currentUser.uid)), (snapshot) => {
-      // update the state with the latest data from the snapshot
-      setDataLoad(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
-    });
+        // update the state with the latest data from the snapshot
+        setDataLoad(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
+      });
 
-      return () => unsubscribe();
+        return () => unsubscribe();
   }, []);
  
 
@@ -52,4 +52,5 @@ function DataTable() {
   );
 }
 
-export default DataTable;
+export default TimeButton;
+

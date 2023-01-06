@@ -5,12 +5,13 @@ import { db } from "../../firebase/FirebaseConfig";
 import { collection, addDoc} from "firebase/firestore";
 import { auth } from "../../firebase/FirebaseConfig";
 import { useState } from "react";
+import TimeButton from "../../components/TimeButton";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [error, setError] = useState('')
-
+  const [timeInDisabled, setTimeInDisabled] = useState(false);
 
   const timeIn = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const Dashboard = () => {
         status: null,
         date: new Date().toLocaleDateString(),
       });
+      setTimeInDisabled(true);
       console.log("Successfully time in");
     } catch (e) {
       setError(e.message);
@@ -32,11 +34,14 @@ const Dashboard = () => {
   };
 
   return (
+    <>
+    
     <Box m="100px" ml="35%">
       <Box display="flex" justifyItems="center" alignItems="center">
         <Box>
           <Button
             onClick={timeIn}
+            disabled={timeInDisabled}
             sx={{
               backgroundColor: colors.greenAccent[700],
               color: colors.grey[100],
@@ -63,8 +68,14 @@ const Dashboard = () => {
             Time Out
           </Button>
         </Box>
+        { error && <div>{error}</div> }
+
       </Box>
+
     </Box>
+    
+      <TimeButton />
+    </>
   );
 };
 
