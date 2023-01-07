@@ -71,10 +71,9 @@ const Dashboard = () => {
         { error && <div>{error}</div> }
 
       </Box>
-
     </Box>
+            <TimeButton />
     
-      <TimeButton />
     </>
   );
 };

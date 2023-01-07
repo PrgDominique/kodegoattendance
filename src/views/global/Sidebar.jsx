@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,24 +10,30 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import { UserAuth } from "../../context/AuthContext";
-
-
+import { db, auth } from "../../firebase/FirebaseConfig";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const { user, logout } = UserAuth();
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const handleLogout = async () => {
-  try {
-    await logout();
-    navigate("/login");
-  } catch (e) {
-    console.log(e.message);
-  }
-};
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   return (
     <>
@@ -51,6 +57,38 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+//get the first name and last name in firebase and replace the name in the sidebar and add batch and replace the student name in the sidebar
+
+
+
+
+  const { user } = UserAuth();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [batchNo, setBatchNo] = useState("");
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "users"),
+      where("email", "==", user.email)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setFirstName(doc.data().firstName);
+        setLastName(doc.data().lastName);
+        setBatchNo(doc.data().batchNo);
+      });
+    });
+    return unsubscribe;
+  }, [user.email]);
+
+
+
+
+
+
+
 
   return (
     <Box
@@ -119,10 +157,11 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Diomel Matura
+                  {firstName} {lastName} 
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Student
+                  {batchNo}
+
                 </Typography>
               </Box>
             </Box>
@@ -161,6 +200,7 @@ const Sidebar = () => {
           </Box>
         </Menu>
       </ProSidebar>
+   
     </Box>
   );
 };
