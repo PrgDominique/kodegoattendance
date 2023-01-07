@@ -117,7 +117,7 @@ const Settings = () => {
             <Grid>
               <Box>
                 <Stack spacing={2} direction="row">
-                  <Button variant="outlined">Test Button</Button>
+                  <Button variant="outlined" color="success">Test Button</Button>
                 </Stack>
               </Box>
             </Grid>
