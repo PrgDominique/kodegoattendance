@@ -76,12 +76,7 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <LogoutOutlinedIcon />
-        </IconButton>
+       
       </Box>
     </Box>
   );
