@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const studentInfo = [
   {
@@ -39,9 +41,9 @@ const Settings = () => {
           <Container Fixed>
             <h1>Account Settings</h1>
             <Box my={2}>
-              <Grid container Spacing={2}>
+              <Grid container Spacing={3}>
                 <Grid item xs={6} md={4}>
-                  <box>
+                  <Box>
                     <h4>First Name</h4>
                     <TextField
                       label="First Name"
@@ -60,11 +62,11 @@ const Settings = () => {
                       id="outlined-size-normal"
                       defaultValue={student.birthday}
                     />
-                  </box>
+                  </Box>
                 </Grid>
 
                 <Grid item xs={6}>
-                  <box>
+                  <Box>
                     <h4>Last Name</h4>
                     <TextField
                       label="Last Name"
@@ -83,22 +85,44 @@ const Settings = () => {
                       id="outlined-size-normal"
                       defaultValue={student.batch}
                     />
-                  </box>
-                </Grid>
-
-                <Grid>
-                  <Box>
-                    <h4>Password</h4>
-                    <TextField fullWidth label="Password" id="fullWidth" />
-
-                    <h4>Confirm Password</h4>
-                    <TextField
-                      fullWidth
-                      label="Confirm Password"
-                      id="fullWidth"
-                    />
                   </Box>
                 </Grid>
+
+                <Container Fixed>
+                  <Grid item xs={6}>
+                    <Box>
+                      <h4>Password</h4>
+                      <TextField
+                        fullWidth
+                        label="Password"
+                        id="fullWidth"
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Box>
+                      <h4>Confirm Password</h4>
+                      <TextField
+                        fullWidth
+                        label="Confirm Password"
+                        id="fullWidth"
+                      />
+                    </Box>
+                  </Grid>
+                </Container>
+
+            <Grid>
+              <Box>
+                <Stack spacing={2} direction="row">
+                  <Button variant="outlined">Test Button</Button>
+                </Stack>
+              </Box>
+            </Grid>
+
+
+
+
               </Grid>
             </Box>
           </Container>
