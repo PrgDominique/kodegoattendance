@@ -33,8 +33,6 @@ const Settings = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  
-
   return (
     //Your code here
     <Typography>
@@ -94,11 +92,7 @@ const Settings = () => {
                   <Grid item xs={6}>
                     <Box>
                       <h4>Password</h4>
-                      <TextField
-                        fullWidth
-                        label="Password"
-                        id="fullWidth"
-                      />
+                      <TextField fullWidth label="Password" id="fullWidth" />
                     </Box>
                   </Grid>
 
@@ -114,17 +108,15 @@ const Settings = () => {
                   </Grid>
                 </Container>
 
-            <Grid>
-              <Box>
-                <Stack spacing={2} direction="row">
-                  <Button variant="outlined" color="success">Test Button</Button>
-                </Stack>
-              </Box>
-            </Grid>
-
-
-
-
+                <Grid>
+                  <Box>
+                    <Stack spacing={2} direction="row">
+                      <Button variant="outlined" color="secondary">
+                        Click me
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Grid>
               </Grid>
             </Box>
           </Container>
