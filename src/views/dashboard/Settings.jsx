@@ -108,6 +108,8 @@ const Settings = () => {
                   </Grid>
                 </Container>
 
+
+              <Container >
                 <Grid>
                   <Box>
                     <Stack spacing={2} direction="row">
@@ -117,6 +119,7 @@ const Settings = () => {
                     </Stack>
                   </Box>
                 </Grid>
+              </Container>
               </Grid>
             </Box>
           </Container>
