@@ -6,6 +6,11 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import dayjs from "dayjs";
+import { useState } from "react";
 
 const studentInfo = [
   {
@@ -33,7 +38,15 @@ const Settings = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  
+  const [value, setValue] = useState(dayjs(""));
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+
+  const birthDate = studentInfo.map((student) => {
+     return student.birthday
+  });
 
   return (
     //Your code here
@@ -58,12 +71,16 @@ const Settings = () => {
                       id="outlined-size-normal"
                       defaultValue={student.mobilenumber}
                     />
-                    <h4>Birthday</h4>
-                    <TextField
-                      label="Birthday"
-                      id="outlined-size-normal"
-                      defaultValue={student.birthday}
-                    />
+                    <h4>Birth date</h4>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopDatePicker
+                        label="Birthdate"
+                        inputFormat="MM/DD/YYYY"
+                        value={birthDate}
+                        onChange={handleChange}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
                   </Box>
                 </Grid>
 
@@ -94,11 +111,7 @@ const Settings = () => {
                   <Grid item xs={6}>
                     <Box>
                       <h4>Password</h4>
-                      <TextField
-                        fullWidth
-                        label="Password"
-                        id="fullWidth"
-                      />
+                      <TextField fullWidth label="Password" id="fullWidth" />
                     </Box>
                   </Grid>
 
@@ -114,17 +127,15 @@ const Settings = () => {
                   </Grid>
                 </Container>
 
-            <Grid>
-              <Box>
-                <Stack spacing={2} direction="row">
-                  <Button variant="outlined" color="success">Test Button</Button>
-                </Stack>
-              </Box>
-            </Grid>
-
-
-
-
+                <Grid>
+                  <Box>
+                    <Stack spacing={2} direction="row">
+                      <Button variant="outlined" color="success">
+                        Test Button
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Grid>
               </Grid>
             </Box>
           </Container>

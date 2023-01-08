@@ -185,7 +185,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Settings"
+              title="Account Settings"
               to="/settings"
               icon={<SettingsOutlinedIcon />}
               selected={selected}
