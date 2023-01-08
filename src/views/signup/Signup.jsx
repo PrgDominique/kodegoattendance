@@ -8,6 +8,10 @@ import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase/FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import dayjs from "dayjs";
 
 const Signup = () => {
   const { createUser } = UserAuth();
@@ -17,7 +21,8 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [birthDate, setBirthDate] = useState((""));
   const [batchNo, setBatchNo] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -48,8 +53,9 @@ const Signup = () => {
       !email ||
       !password ||
       !confirmPassword ||
-      !username ||
-      !batchNo
+      !mobileNumber ||
+      !batchNo ||
+      !birthDate
     ) {
       console.error("All fields are required.");
       setError("All fields are required");
@@ -65,7 +71,8 @@ const Signup = () => {
         email,
         firstName,
         lastName,
-        username,
+        mobileNumber,
+        birthDate,
         batchNo,
       });
       navigate("/login");
@@ -98,16 +105,16 @@ const Signup = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <h4>Username</h4>
+            <h4>Mobile Number</h4>
             <TextField
               type="text"
               fullWidth
-              label="Username"
-              placeholder="Type your username"
+              label="Mobile Number"
+              placeholder="Type your Mobile Number"
               variant="outlined"
               {...(error && { error: true, helperText: error })}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
             />
             <h4>Password</h4>
             <TextField
@@ -166,6 +173,19 @@ const Signup = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
+            <Grid item xs={6}>
+            <h4>Birth Date</h4>
+            <TextField
+              type="text"
+              fullWidth
+              label="Birth Date"
+              placeholder="Type your Birth Date"
+              variant="outlined"
+              {...(error && { error: true, helperText: error })}
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+            />
+            </Grid>
 
             <button>Sign Up</button>
           </Grid>
