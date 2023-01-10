@@ -6,6 +6,7 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import DateTime from "../../components/DateTime";
+import React from 'react'
 
 //test
 // import Avatar from '@mui/material/Avatar';
@@ -50,6 +51,8 @@ const Topbar = () => {
   //test end
 
   return (
+    <React.Fragment>
+
     <Box display="flex" justifyContent="space-between" p={2}>
      
        <Typography variant="h4" sx={{ color: colors.grey[100] }}>
@@ -79,6 +82,7 @@ const Topbar = () => {
        
       </Box>
     </Box>
+    </React.Fragment>
   );
 };
 

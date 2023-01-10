@@ -18,6 +18,7 @@ import {
   where,
   onSnapshot,
 } from "firebase/firestore";
+import React from 'react'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -91,6 +92,7 @@ const Sidebar = () => {
 
 
   return (
+    <React.Fragment>
     <Box
       sx={{
         "& .pro-sidebar-inner": {
@@ -205,6 +207,7 @@ const Sidebar = () => {
       </ProSidebar>
    
     </Box>
+    </React.Fragment>
   );
 };
 
