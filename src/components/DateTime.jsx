@@ -12,7 +12,7 @@ const DateTime = () => {
 
   return (
    
-    <Typography>
+    <Typography variant="h3">
       {newtime.toLocaleTimeString()} | {newtime.toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}
     </Typography>
    

@@ -152,15 +152,18 @@ const Sidebar = () => {
               </Box>
               <Box textAlign="center">
                 <Typography
-                  variant="h2"
+                  variant="h3"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
                   {firstName} {lastName} 
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography variant="h3" color={colors.greenAccent[500] }>
+                  <Box sx={{marginTop: 2}}>
+
                   {batchNo}
+                  </Box>
 
                 </Typography>
               </Box>
