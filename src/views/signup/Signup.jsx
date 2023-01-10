@@ -192,12 +192,14 @@ const Signup = () => {
 
             <Grid item>
             <Button
+            type="submit"
               style={{
                 borderRadius: 5,
                 backgroundColor: "#2196f3",
                 padding: "18px, 36px",
                 fontsize: "18px",
                 fontWeight: "bold",
+
                 
                 
               }}
