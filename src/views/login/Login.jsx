@@ -3,7 +3,6 @@ import { Container, Grid, Paper } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import { spacing } from "@mui/system";
 import Link from "@mui/material/Link";
 import Logo from "../global/Logo";
 import { useNavigate } from "react-router-dom";
