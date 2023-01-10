@@ -12,6 +12,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
+import Logo from "../global/Logo";
+import Button from '@mui/material/Button';
 
 const Signup = () => {
   const { createUser } = UserAuth();
@@ -85,6 +87,7 @@ const Signup = () => {
   return (
     //Your code here
     <Container fixed>
+      <Logo />
       <h1>Sign up</h1>
       <h4>
         Let's get you all setup so you can verify your personal account and
@@ -187,7 +190,26 @@ const Signup = () => {
             />
             </Grid>
 
-            <button>Sign Up</button>
+            <Grid item>
+            <Button
+              style={{
+                borderRadius: 5,
+                backgroundColor: "#2196f3",
+                padding: "18px, 36px",
+                fontsize: "18px",
+                fontWeight: "bold",
+                
+                
+              }}
+              variant="contained"
+              sx={{ mt: 3, mb: 3 }}
+              
+            >
+              Sign up
+            </Button>
+          </Grid>
+
+            {/* <button>Sign Up</button> */}
           </Grid>
         </Grid>
       </form>
