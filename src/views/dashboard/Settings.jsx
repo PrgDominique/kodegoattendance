@@ -58,186 +58,187 @@ const Settings = () => {
             margin: "auto",
           }}
         >
-        {edit ?
-        <Container
-        maxWidth="lg"
-        sx={{
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <h4>First Name</h4>
-            <TextField
-              label="First Name"
-              id="outlined-size-normal"
-              value={firstName}
-              sx={{ width: 250 }}
-              disabled
-            />
-          </Grid>
+          {edit ? (
+            <Container maxWidth="lg" sx={{}}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <h4>First Name</h4>
+                  <TextField
+                    label="First Name"
+                    id="outlined-size-normal"
+                    value={firstName}
+                    sx={{ width: 250 }}
+                    disabled
+                  />
+                </Grid>
 
-          <Grid item xs={12} md={6}>
-            <h4>Last Name</h4>
-            <TextField
-              label="Last Name"
-              id="outlined-size-normal"
-              value={lastName}
-              sx={{ width: 250 }}
-              disabled
+                <Grid item xs={12} md={6}>
+                  <h4>Last Name</h4>
+                  <TextField
+                    label="Last Name"
+                    id="outlined-size-normal"
+                    value={lastName}
+                    sx={{ width: 250 }}
+                    disabled
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <h4>Mobile Number</h4>
+                  <TextField
+                    label="Mobile Number"
+                    id="outlined-size-normal"
+                    value={mobileNumber}
+                    sx={{ width: 250 }}
+                    disabled
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <h4>Email</h4>
+                  <TextField
+                    label="Email"
+                    id="outlined-size-normal"
+                    value={email}
+                    sx={{ width: 250 }}
+                    disabled
+                  />
+                </Grid>
 
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <h4>Mobile Number</h4>
-            <TextField
-              label="Mobile Number"
-              id="outlined-size-normal"
-              value={mobileNumber}
-              sx={{ width: 250 }}
-              disabled
+                <Grid item xs={12} md={6}>
+                  <h4>Birth date</h4>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      label="Birthdate"
+                      inputFormat="MM/DD/YYYY"
+                      value={birthDate}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}
+                      disabled
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <h4>Batch</h4>
+                  <TextField
+                    label="Batch"
+                    id="outlined-size-normal"
+                    value={batchNo}
+                    sx={{ width: 250 }}
+                    disabled
+                  />
+                </Grid>
+              </Grid>
+              <Container>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  onClick={() => setEdit(!edit)}
+                  sx={{
+                    marginTop: 10,
+                    marginLeft: 5,
+                    height: 60,
+                    width: 180,
+                    fontSize: 16,
+                  }}
+                >
+                  Edit Account
+                </Button>
+              </Container>
+            </Container>
+          ) : (
+            <Container maxWidth="lg" sx={{}}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <h4>First Name</h4>
+                  <TextField
+                    label="First Name"
+                    id="outlined-size-normal"
+                    value={firstName}
+                    sx={{ width: 250 }}
+                  />
+                </Grid>
 
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <h4>Email</h4>
-            <TextField
-              label="Email"
-              id="outlined-size-normal"
-              value={email}
-              sx={{ width: 250 }}
-              disabled
+                <Grid item xs={12} md={6}>
+                  <h4>Last Name</h4>
+                  <TextField
+                    label="Last Name"
+                    id="outlined-size-normal"
+                    value={lastName}
+                    sx={{ width: 250 }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <h4>Mobile Number</h4>
+                  <TextField
+                    label="Mobile Number"
+                    id="outlined-size-normal"
+                    value={mobileNumber}
+                    sx={{ width: 250 }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <h4>Email</h4>
+                  <TextField
+                    label="Email"
+                    id="outlined-size-normal"
+                    value={email}
+                    sx={{ width: 250 }}
+                  />
+                </Grid>
 
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <h4>Birth date</h4>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="Birthdate"
-                inputFormat="MM/DD/YYYY"
-                value={birthDate}
-                onChange={handleChange}
-                renderInput={(params) => <TextField {...params} />}
-              disabled
-
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <h4>Batch</h4>
-            <TextField
-              label="Batch"
-              id="outlined-size-normal"
-              value={batchNo}
-              sx={{ width: 250 }}
-              disabled
-
-            />
-          </Grid>
-
-        </Grid>
-        <Container >
-          <Button
-            variant="outlined"
-            color="success"
-            onClick={() => setEdit(!edit)}
-            sx={{ marginTop: 10, marginLeft: 5, height: 60, width: 180, fontSize: 16 }}
-          >
-            Edit Account
-          </Button>
-        
-        </Container>
-        
-      </Container>
-        : <Container
-          maxWidth="lg"
-          sx={{
-          }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <h4>First Name</h4>
-              <TextField
-                label="First Name"
-                id="outlined-size-normal"
-                value={firstName}
-                sx={{ width: 250 }}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <h4>Last Name</h4>
-              <TextField
-                label="Last Name"
-                id="outlined-size-normal"
-                value={lastName}
-                sx={{ width: 250 }}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <h4>Mobile Number</h4>
-              <TextField
-                label="Mobile Number"
-                id="outlined-size-normal"
-                value={mobileNumber}
-                sx={{ width: 250 }}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <h4>Email</h4>
-              <TextField
-                label="Email"
-                id="outlined-size-normal"
-                value={email}
-                sx={{ width: 250 }}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <h4>Birth date</h4>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Birthdate"
-                  inputFormat="MM/DD/YYYY"
-                  value={birthDate}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <h4>Batch</h4>
-              <TextField
-                label="Batch"
-                id="outlined-size-normal"
-                value={batchNo}
-                sx={{ width: 250 }}
-              />
-            </Grid>
-           
-          </Grid>
-          <Container >
-            <Button
-              variant="outlined"
-              color="success"
-              onClick={() => setEdit(!edit)}
-              sx={{ marginTop: 10, marginLeft: 5, height: 60, width: 180, fontSize: 16 }}
-            >
-              Apply Now
-            </Button>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={() => setEdit(!edit)}
-              sx={{ marginTop: 10, marginLeft: 5, height: 60, width: 180, fontSize: 16 }}
-
-            >
-              Cancel
-            </Button>
-          </Container>
-          
-        </Container>}
+                <Grid item xs={12} md={6}>
+                  <h4>Birth date</h4>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      label="Birthdate"
+                      inputFormat="MM/DD/YYYY"
+                      value={birthDate}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <h4>Batch</h4>
+                  <TextField
+                    label="Batch"
+                    id="outlined-size-normal"
+                    value={batchNo}
+                    sx={{ width: 250 }}
+                  />
+                </Grid>
+              </Grid>
+              <Container>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  onClick={() => setEdit(!edit)}
+                  sx={{
+                    marginTop: 10,
+                    marginLeft: 5,
+                    height: 60,
+                    width: 180,
+                    fontSize: 16,
+                  }}
+                >
+                  Apply Now
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => setEdit(!edit)}
+                  sx={{
+                    marginTop: 10,
+                    marginLeft: 5,
+                    height: 60,
+                    width: 180,
+                    fontSize: 16,
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Container>
+            </Container>
+          )}
         </Box>
       </Typography>
     </>
