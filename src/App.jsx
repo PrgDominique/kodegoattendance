@@ -6,6 +6,7 @@ import Login from "./views/login/Login";
 import Layout from "./Layout";
 import Signup from "./views/signup/Signup";
 import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 
@@ -19,9 +20,21 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               
               <Route element={<Layout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/attendance-history" element={<AttendanceHis />} />
-              <Route path="/Settings" element={<Settings />} /> 
+              <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+              <Route path="/attendance-history" element={
+              <ProtectedRoute>
+                <AttendanceHis />
+              </ProtectedRoute>
+              } />
+              <Route path="/Settings" element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+              } /> 
               </Route>               
               
             </Routes>

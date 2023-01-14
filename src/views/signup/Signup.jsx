@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Container, Grid, Paper,TextField} from "@mui/material";
 import Button from '@mui/material/Button';
@@ -17,6 +17,17 @@ const Signup = () => {
     const [mobileNumber, setMobileNumber] = useState("")
     const [birthDate, setBirthDate] = useState((""))
     const [batchID, setBatchID] = useState("")
+
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+          // User is authenticated, redirect to dashboard
+          navigate("/dashboard");
+        }
+      });
+  
+      return unsubscribe;
+    }, [navigate]);
  
     const handleSignup = async (e) => {
       e.preventDefault()
@@ -163,7 +174,7 @@ const Signup = () => {
             </Button>
           </Grid>
 
-            {/* <button>Sign Up</button> */}
+      
           </Grid>
         </Grid>
       </form>

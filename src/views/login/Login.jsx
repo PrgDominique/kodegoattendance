@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Grid, Paper,TextField} from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
@@ -11,6 +11,18 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+          // User is authenticated, redirect to dashboard
+          navigate("/dashboard");
+        }
+      });
+  
+      return unsubscribe;
+    }, [navigate]);
        
     const handleLogin = (e) => {
         e.preventDefault();

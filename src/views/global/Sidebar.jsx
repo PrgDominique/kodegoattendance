@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link,useNavigate} from "react-router-dom";
@@ -9,8 +9,9 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import {  signOut } from "firebase/auth";
 import {auth} from '../../firebase';
+import { getDatabase, ref, set, equalTo, orderByChild} from "firebase/database";
+import { UserAuth } from "../../context/AuthContext";
 
 
 
@@ -37,16 +38,49 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
+  const db = getDatabase();
   
+  const { user, logout } = UserAuth();
+
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+      console.log("Signed out successfully")
+
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  useEffect(() => {
+    if(auth.currentUser) {
+      const userId = auth.currentUser.uid;
+      const userRef = ref(db, "users/" + userId);
   
-  const handleLogout = () => {               
-      signOut(auth).then(() => {
-          navigate("/");
-          console.log("Signed out successfully")
-      }).catch((error) => {
-      });
-  }
+      const fetchData = async () => {
+        try {
+          const snapshot = await userRef.on("value");
+          const data = snapshot.val();
+          setFirstName(data.firstName);
+          setLastName(data.lastName);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+  
+      fetchData();
+    } else {
+      console.log("No user is signed in");
+    }
+  }, []);
+       
+  
+
 
   return (
     <Box
@@ -113,7 +147,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Diomel Matura
+                  {firstName} {lastName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   Student
