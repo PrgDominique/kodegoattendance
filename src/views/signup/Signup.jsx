@@ -38,6 +38,7 @@ const Signup = () => {
                 const db = getDatabase();
                 const userId = auth.currentUser.uid;
                 set(ref(db, 'users/' + userId), {
+                  userId,
                   firstName: firstName,
                   lastName: lastName,
                   email: email,

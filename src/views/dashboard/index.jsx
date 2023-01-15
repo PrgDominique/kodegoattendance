@@ -1,14 +1,45 @@
 import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import { getDatabase, ref, set, update} from "firebase/database";
+import { getDatabase, ref, set, update,query} from "firebase/database";
 import { auth } from '../../firebase';
 import { useState, useEffect } from "react";
+import { UserAuth } from "../../context/AuthContext";
 
 const Main = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [error, setError] = useState('')
+  const db = getDatabase();
+
+
+  //get firstName and lastName of firebase realtime database 
+
+  const { user, logout } = UserAuth();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      const userId = auth.currentUser.uid;
+      const userRef = query(ref(db, "users/" + userId));
+
+      const fetchData = async () => {
+        try {
+          const snapshot = await userRef.once("value");
+          const data = snapshot.val();
+          setFirstName(data.firstName);
+          setLastName(data.lastName);
+          console.log("successful login")
+        } catch (e) {
+          console.log("not login");
+        }
+      };
+      fetchData();
+    }
+  }, [ db]);
+
+
   
   const [timeinDisabled, setDisabled] = useState(false);
     const [lastClicked, setLastClicked] = useState('');
@@ -20,7 +51,12 @@ const Main = () => {
         }
     }, []);
 
+ 
+
+
+
   const timeIn = async (e) => {
+  
     e.preventDefault();
      
     try {
@@ -99,6 +135,7 @@ const Main = () => {
             <ScheduleIcon sx={{ mr: "10px" }} />
             Time Out
           </Button>
+        {firstName} 
         </Box>
       </Box>
     </Box>

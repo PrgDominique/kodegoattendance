@@ -57,27 +57,34 @@ const Sidebar = () => {
     }
   };
 
+
+ // get firstName and lastName of firebase realtime database
+
+
+
   useEffect(() => {
-    if(auth.currentUser) {
+    if (auth.currentUser) {
       const userId = auth.currentUser.uid;
       const userRef = ref(db, "users/" + userId);
-  
+
       const fetchData = async () => {
         try {
-          const snapshot = await userRef.on("value");
+          const snapshot = await userRef.once("value");
           const data = snapshot.val();
           setFirstName(data.firstName);
           setLastName(data.lastName);
-        } catch (error) {
-          console.log(error);
+          console.log("successful login")
+        } catch (e) {
+          console.log("not login");
         }
-      }
-  
+      };
       fetchData();
-    } else {
-      console.log("No user is signed in");
     }
-  }, []);
+  }, [ db]);
+
+
+
+  
        
   
 

@@ -6,11 +6,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
+import { UserAuth } from '../../context/AuthContext';
  
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { signIn } = UserAuth();
 
 
     useEffect(() => {
@@ -24,22 +27,22 @@ const Login = () => {
       return unsubscribe;
     }, [navigate]);
        
-    const handleLogin = (e) => {
-        e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            navigate("/dashboard")
-            console.log(user);
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
-        });
-       
+    const handleLogin = async(e) => {
+      e.preventDefault();
+
+    try {
+      const user = await signIn(email, password);
+      console.log("Successfully logged in");
+      navigate("/dashboard");
+     
+    } catch (e) {
+      setError(e.message);
+      console.log(e.message);
     }
+  };
+
+       
+    
  
     return(
         <div>
