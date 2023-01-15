@@ -1,4 +1,6 @@
 import { Box, Button, useTheme } from "@mui/material";
+import DataTable from "../../components/DataTable";
+
 import { tokens } from "../../theme";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import {
@@ -6,8 +8,11 @@ import {
   getDocs,
   query,
   where,
+  updateDoc,
   onSnapshot,
   addDoc,
+  doc,
+  orderBy
   
 } from "firebase/firestore";
 import { auth, db } from "../../firebase";
@@ -19,9 +24,10 @@ const Main = () => {
   const colors = tokens(theme.palette.mode);
   const [error, setError] = useState("");
   const [timeInDisabled, setTimeInDisabled] = useState(false);
+  const [timeoutDisabled, setTimeoutDisabled] = useState(false);
 
 
-  //get firstName and lastName of firebase realtime database
+
 
 
 
@@ -35,10 +41,11 @@ const Main = () => {
         user_id: userID,
         timein: new Date().toLocaleTimeString(),
         timeout: null,
-        status: null,
+        status: "present",
         date: new Date().toLocaleDateString(),
       });
       setTimeInDisabled(true);
+      setTimeoutDisabled(false);
       console.log("Successfully time in");
     } catch (e) {
       setError(e.message);
@@ -46,15 +53,38 @@ const Main = () => {
     }
   };
 
-  const [timeinDisabled, setDisabled] = useState(false);
-  const [lastClicked, setLastClicked] = useState("");
+  //create function timeout and update the timeout null to the current time in firebase firestore
+  const timeout = async (e) => {
+    e.preventDefault();
 
-  useEffect(() => {
-    const storedLastClicked = sessionStorage.getItem("lastClicked");
-    if (storedLastClicked) {
-      setLastClicked(storedLastClicked);
+    try {
+      const userID = auth.currentUser.uid;
+      const q = query(
+        collection(db, "attendance"),
+        where("user_id", "==", userID),
+        where("date", "==", new Date().toLocaleDateString()).orderBy("timein", "desc")
+      );
+     
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        updateDoc(doc.ref, {
+          timeout: new Date().toLocaleTimeString(),
+        });
+      });
+      setTimeoutDisabled(true);
+      setTimeInDisabled(false);
+
+      console.log("Successfully time out");
+    } catch (e) {
+      setError(e.message);
+      console.log("failed to timeout")
     }
-  }, []);
+  };
+
+
+
+
+
 
   return (
     <Box m="100px" ml="35%">
@@ -62,7 +92,7 @@ const Main = () => {
         <Box>
           <Button
             onClick={timeIn}
-            disabled={timeinDisabled}
+            disabled={timeInDisabled}
             sx={{
               backgroundColor: colors.greenAccent[700],
               color: colors.grey[100],
@@ -77,7 +107,8 @@ const Main = () => {
           </Button>
 
           <Button
-          
+          onClick={timeout}
+          disabled={timeoutDisabled}
             sx={{
               backgroundColor: colors.redAccent[700],
               color: colors.grey[100],
@@ -91,6 +122,7 @@ const Main = () => {
           </Button>
         </Box>
       </Box>
+        <DataTable />
     </Box>
   );
 };
