@@ -1,65 +1,59 @@
-import React, {useEffect, useState} from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Container, Grid, Paper,TextField} from "@mui/material";
-import Button from '@mui/material/Button';
-import {  createUserWithEmailAndPassword  } from 'firebase/auth';
-import { getDatabase, ref, set } from "firebase/database";
-import { auth } from '../../firebase';
- 
-const Signup = () => {
-    const navigate = useNavigate();
- 
-    const [email, setEmail] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [mobileNumber, setMobileNumber] = useState("")
-    const [birthDate, setBirthDate] = useState((""))
-    const [batchID, setBatchID] = useState("")
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Container, Grid, TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import { auth, db } from "../../firebase";
+import { UserAuth } from "../../context/AuthContext";
+import { collection, addDoc } from "firebase/firestore";
 
-    useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged(user => {
-        if (user) {
-          // User is authenticated, redirect to dashboard
-          navigate("/dashboard");
-        }
+const Signup = () => {
+  const navigate = useNavigate();
+  const { createUser } = UserAuth();
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [batchID, setBatchID] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is authenticated, redirect to dashboard
+        navigate("/dashboard");
+      }
+    });
+
+    return unsubscribe;
+  }, [navigate]);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const user = await createUser(email, password);
+      console.log("Successfully created new user");
+      const userID = user.user.uid;
+      await addDoc(collection(db, "users"), {
+        userID,
+        email,
+        firstName,
+        lastName,
+        mobileNumber,
+        birthDate,
+        batchID,
       });
-  
-      return unsubscribe;
-    }, [navigate]);
- 
-    const handleSignup = async (e) => {
-      e.preventDefault()
-     
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            
-                const db = getDatabase();
-                const userId = auth.currentUser.uid;
-                set(ref(db, 'users/' + userId), {
-                  userId,
-                  firstName: firstName,
-                  lastName: lastName,
-                  email: email,
-                  mobile: mobileNumber,
-                  birthDate: birthDate,
-                  batchID: batchID,
-                });
-          
-            navigate("/login")
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-            // ..
-        });
- 
-   
+      console.log("Successfully added user to database");
+      navigate("/login");
+
+    } catch (e) {
+      setError(e.message);
+      console.log(e.message);
     }
- 
+  };
+
   return (
     //Your code here
     <Container fixed>
@@ -145,42 +139,39 @@ const Signup = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <Grid item xs={6}>
-            <h4>Birth Date</h4>
-            <TextField
-              type="text"
-              fullWidth
-              label="Birth Date"
-              placeholder="Type your Birth Date"
-              variant="outlined"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-            />
+              <h4>Birth Date</h4>
+              <TextField
+                type="text"
+                fullWidth
+                label="Birth Date"
+                placeholder="Type your Birth Date"
+                variant="outlined"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
             </Grid>
 
             <Grid item>
-            <Button
-            type="submit"
-              style={{
-                borderRadius: 5,
-                backgroundColor: "#2196f3",
-                padding: "18px, 36px",
-                fontsize: "18px",
-                fontWeight: "bold",            
-              }}
-              variant="contained"
-              sx={{ mt: 3, mb: 3 }}
-              
-            >
-              Sign up
-            </Button>
-          </Grid>
-
-      
+              <Button
+                type="submit"
+                style={{
+                  borderRadius: 5,
+                  backgroundColor: "#2196f3",
+                  padding: "18px, 36px",
+                  fontsize: "18px",
+                  fontWeight: "bold",
+                }}
+                variant="contained"
+                sx={{ mt: 3, mb: 3 }}
+              >
+                Sign up
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </form>
     </Container>
   );
-}
- 
-export default Signup
+};
+
+export default Signup;

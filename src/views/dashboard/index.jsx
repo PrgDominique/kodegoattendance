@@ -1,114 +1,68 @@
 import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import { getDatabase, ref, set, update,query} from "firebase/database";
-import { auth } from '../../firebase';
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  onSnapshot,
+  addDoc,
+  
+} from "firebase/firestore";
+import { auth, db } from "../../firebase";
 import { useState, useEffect } from "react";
 import { UserAuth } from "../../context/AuthContext";
 
 const Main = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [error, setError] = useState('')
-  const db = getDatabase();
+  const [error, setError] = useState("");
+  const [timeInDisabled, setTimeInDisabled] = useState(false);
 
 
-  //get firstName and lastName of firebase realtime database 
+  //get firstName and lastName of firebase realtime database
 
-  const { user, logout } = UserAuth();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
-  useEffect(() => {
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-      const userRef = query(ref(db, "users/" + userId));
-
-      const fetchData = async () => {
-        try {
-          const snapshot = await userRef.once("value");
-          const data = snapshot.val();
-          setFirstName(data.firstName);
-          setLastName(data.lastName);
-          console.log("successful login")
-        } catch (e) {
-          console.log("not login");
-        }
-      };
-      fetchData();
-    }
-  }, [ db]);
-
-
-  
-  const [timeinDisabled, setDisabled] = useState(false);
-    const [lastClicked, setLastClicked] = useState('');
-
-    useEffect(() => {
-        const storedLastClicked = sessionStorage.getItem('lastClicked');
-        if (storedLastClicked) {
-            setLastClicked(storedLastClicked);
-        }
-    }, []);
-
- 
 
 
 
   const timeIn = async (e) => {
-  
     e.preventDefault();
-     
+
     try {
-      const db = getDatabase();
-      const userId = auth.currentUser.uid;
-      const date = new Date().toLocaleDateString();
-      set(ref(db, 'attendance/' + userId + '/' + date), {
-        timeIn: new Date().toLocaleTimeString(),
-        timeOut: null,
-        status: "present",
+      const userID = auth.currentUser.uid;
+      await addDoc(collection(db, "attendance"), {
+        user_id: userID,
+        timein: new Date().toLocaleTimeString(),
+        timeout: null,
+        status: null,
+        date: new Date().toLocaleDateString(),
       });
+      setTimeInDisabled(true);
       console.log("Successfully time in");
-      setDisabled(true);
-      setLastClicked(date);
-      sessionStorage.setItem('lastClicked', date);
-
     } catch (e) {
       setError(e.message);
       console.log(e.message);
     }
   };
 
-  const timeOut = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const db = getDatabase();
-      const userId = auth.currentUser.uid;
-      const date = new Date().toLocaleDateString();
-      update(ref(db, 'attendance/' + userId + '/' + date), {
-        timeOut: new Date().toLocaleTimeString(),
-      });
-      console.log("Successfully time out");
-    } catch (e) {
-      setError(e.message);
-      console.log(e.message);
-    }
-  };
+  const [timeinDisabled, setDisabled] = useState(false);
+  const [lastClicked, setLastClicked] = useState("");
 
   useEffect(() => {
-    const date = new Date().toISOString().slice(0, 10);
-    if (date !== lastClicked) {
-        setDisabled(false);
+    const storedLastClicked = sessionStorage.getItem("lastClicked");
+    if (storedLastClicked) {
+      setLastClicked(storedLastClicked);
     }
-}, []);
+  }, []);
 
   return (
-    <Box m="100px" ml="35%">  
+    <Box m="100px" ml="35%">
       <Box display="flex" justifyItems="center" alignItems="center">
         <Box>
           <Button
-          onClick={timeIn} disabled={timeinDisabled}
+            onClick={timeIn}
+            disabled={timeinDisabled}
             sx={{
               backgroundColor: colors.greenAccent[700],
               color: colors.grey[100],
@@ -123,7 +77,7 @@ const Main = () => {
           </Button>
 
           <Button
-          onClick={timeOut}
+          
             sx={{
               backgroundColor: colors.redAccent[700],
               color: colors.grey[100],
@@ -135,7 +89,6 @@ const Main = () => {
             <ScheduleIcon sx={{ mr: "10px" }} />
             Time Out
           </Button>
-        {firstName} 
         </Box>
       </Box>
     </Box>

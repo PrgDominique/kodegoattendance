@@ -3,7 +3,6 @@ import { Container, Grid, Paper,TextField} from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../../context/AuthContext';
@@ -37,7 +36,7 @@ const Login = () => {
      
     } catch (e) {
       setError(e.message);
-      console.log(e.message);
+      console.log("failed to login");
     }
   };
 
@@ -80,17 +79,7 @@ const Login = () => {
                       placeholder="Password"
                       variant="outlined"
                       onChange={(e) => setPassword(e.target.value)}
-                      // InputProps={{
-                      //   endAdornment:(
-                      //       <InputAdornment position="end">
-                      //           <IconButton
-                      //           aria-label="toggle password"
-                      //           edge="end">
-                      //           <VisibilityIcon/>
-                      //           </IconButton>
-                      //       </InputAdornment>
-                      //   )
-                      // }}
+                   
                     />
                   </Grid>
                   <Grid item>

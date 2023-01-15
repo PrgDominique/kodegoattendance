@@ -9,9 +9,15 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import {auth} from '../../firebase';
-import { getDatabase, ref, set, equalTo, orderByChild} from "firebase/database";
+import {auth, db} from '../../firebase';
 import { UserAuth } from "../../context/AuthContext";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  onSnapshot
+} from "firebase/firestore";
 
 
 
@@ -40,8 +46,9 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [batchID, setBatchID] = useState("");
   const navigate = useNavigate();
-  const db = getDatabase();
+
   
   const { user, logout } = UserAuth();
 
@@ -56,31 +63,33 @@ const Sidebar = () => {
       console.log(e.message);
     }
   };
-
-
- // get firstName and lastName of firebase realtime database
-
-
+  // get the firstName and Lastname of the current login user using firestore db
 
   useEffect(() => {
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-      const userRef = ref(db, "users/" + userId);
+    if (user && user.email) {
+    const q = query(
+      collection(db, "users"),
+      where("email", "==", user.email)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setFirstName(doc.data().firstName);
+        setLastName(doc.data().lastName);
+        setBatchID(doc.data().batchID);
+      });
+    });
+    return unsubscribe;
+  } else {
+      console.log("cannot find the user")
+  }
 
-      const fetchData = async () => {
-        try {
-          const snapshot = await userRef.once("value");
-          const data = snapshot.val();
-          setFirstName(data.firstName);
-          setLastName(data.lastName);
-          console.log("successful login")
-        } catch (e) {
-          console.log("not login");
-        }
-      };
-      fetchData();
-    }
-  }, [ db]);
+  }, [user?.email]);
+
+
+
+
+
+ 
 
 
 
@@ -157,7 +166,7 @@ const Sidebar = () => {
                   {firstName} {lastName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Student
+                 {batchID}
                 </Typography>
               </Box>
             </Box>

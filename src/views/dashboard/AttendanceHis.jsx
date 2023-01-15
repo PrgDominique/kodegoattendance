@@ -1,4 +1,5 @@
 import { Typography,useTheme } from "@mui/material";
+import DataTable from "../../components/DataTable";
 import { tokens } from "../../theme";
 
 const AttendanceHis = () => {
@@ -7,7 +8,9 @@ const AttendanceHis = () => {
 
 return (
  //Your code here
- <Typography>Attendance History</Typography>
+ <>
+ <DataTable />
+ </>
 )
 }
 
