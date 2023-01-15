@@ -1,20 +1,11 @@
-.error-page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #dad60a;
-}
 
-h1 {
+
+.noPageh1 {
   font-size: 10rem;
   color: #ac3232;
-  margin-bottom: 0;
+
 }
 
-h2 {
-  font-size: 2rem;
+.noPageh2 {
   color: #fcc0c0;
-  margin-top: 0;
 }

@@ -55,7 +55,7 @@ function TimeButton() {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [ ]);
 
   return (
     <>

@@ -82,7 +82,7 @@ const Sidebar = () => {
       });
     });
     return unsubscribe;
-  }, [user.email]);
+  }, [ user?.email]);
 
 
 

@@ -8,30 +8,34 @@ import { Typography, useTheme } from "@mui/material";
 const NoPage = () => {
   const navigate = useNavigate();
   return (
-    <Typography variant="h1">
+    <>
+    <Typography>
       
         <Box
           sx={{
             width: 1200,
-            height: 800,
-            margin: "auto",
-            backgroundColor: 'primary.dark'
+            height: 600,
+            marginTop: 10,
+            marginLeft: 30,
+            backgroundColor: 'primary.dark',
+            display: 'flex'
           }}
         ><Container maxWidth="lg" >
-          <Box sx={{ margin: "auto"}}>
-          
-            <div>
-              <h1>404</h1>
-              <h2>Uh-oh! Page not found</h2>
+          <Box sx={{justifyContent: 'center', alignContent: 'center'}}>
+
+              <h1  className="noPageh1">Error 404</h1>
+       
+              <h2 className="noPageh2">Uh-oh! Page not found</h2>
 
               <button onClick={() => navigate("/")}>Go to Homepage</button>
-            </div>
-          
+            
           </Box>
+        
           </Container>
         </Box>
       
     </Typography>
+    </>
   );
 };
 
