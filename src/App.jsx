@@ -23,7 +23,6 @@ function App() {
               <Route path="/attendance-history" element={<AttendanceHis />} />
               <Route path="/Settings" element={<Settings />} /> 
               </Route>               
-              
             </Routes>
     </AuthContextProvider>
   );
