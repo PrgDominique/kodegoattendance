@@ -28,6 +28,7 @@ function TimeButton() {
   );
 
   useEffect(() => {
+  
     const getAttendance = async () => {
       try {
         const data = await getDocs(attendance_records);
@@ -54,7 +55,7 @@ function TimeButton() {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [ ]);
 
   return (
     <>
