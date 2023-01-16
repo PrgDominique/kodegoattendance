@@ -19,13 +19,14 @@ import { auth, db } from "../../firebase";
 import { useState, useEffect } from "react";
 import { UserAuth } from "../../context/AuthContext";
 
+
 const Main = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [error, setError] = useState("");
   const [timeInDisabled, setTimeInDisabled] = useState(false);
   const [timeoutDisabled, setTimeoutDisabled] = useState(false);
-
+const [newID, setNewID] = useState(null);
 
 
 
@@ -37,7 +38,11 @@ const Main = () => {
 
     try {
       const userID = auth.currentUser.uid;
+       const id = db.firestore().collection("attendance").doc().id;
+       setNewID(id);
+
       await addDoc(collection(db, "attendance"), {
+         id: id,
         user_id: userID,
         timein: new Date().toLocaleTimeString(),
         timeout: null,
@@ -54,26 +59,41 @@ const Main = () => {
   };
 
   //create function timeout and update the timeout null to the current time in firebase firestore
-  const timeout = async (e) => {
-    e.preventDefault();
+  // const timeout = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const userID = auth.currentUser.uid;
-      const q = query(
-        collection(db, "attendance"),
-        where("user_id", "==", userID),
-        where("date", "==", new Date().toLocaleDateString()).orderBy("timein", "desc")
-      );
+  //   try {
+  //     const userID = auth.currentUser.uid;
+  //     const q = query(
+  //       collection(db, "attendance"),
+  //       where("user_id", "==", userID),
+  //       where("date", "==", new Date().toLocaleDateString())
+  //     );
      
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        updateDoc(doc.ref, {
-          timeout: new Date().toLocaleTimeString(),
-        });
+  //     const querySnapshot = await getDocs(q);
+  //     querySnapshot.forEach((doc) => {
+  //       updateDoc(doc.ref, {
+  //         timeout: new Date().toLocaleTimeString(),
+  //       });
+  //     });
+  //     setTimeoutDisabled(true);
+  //     setTimeInDisabled(false);
+
+  //     console.log("Successfully time out");
+  //   } catch (e) {
+  //     setError(e.message);
+  //     console.log("failed to timeout")
+  //   }
+  // };
+
+const timeout = async (e) => {
+    e.preventDefault();
+    try {
+      updateDoc(doc(collection(db, "attendance"), newID), {
+        timeout: new Date().toLocaleTimeString(),
       });
       setTimeoutDisabled(true);
       setTimeInDisabled(false);
-
       console.log("Successfully time out");
     } catch (e) {
       setError(e.message);
@@ -84,14 +104,12 @@ const Main = () => {
 
 
 
-
-
   return (
     <Box m="100px" ml="35%">
       <Box display="flex" justifyItems="center" alignItems="center">
         <Box>
           <Button
-            onClick={timeIn}
+           onClick={(e) => timeIn(e)}
             disabled={timeInDisabled}
             sx={{
               backgroundColor: colors.greenAccent[700],
@@ -107,7 +125,7 @@ const Main = () => {
           </Button>
 
           <Button
-          onClick={timeout}
+         onClick={(e) => timeout(e)}
           disabled={timeoutDisabled}
             sx={{
               backgroundColor: colors.redAccent[700],

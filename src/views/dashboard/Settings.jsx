@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { db } from "../../firebase";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { collection, query, where, onSnapshot, updateDoc, doc, setDoc } from "firebase/firestore";
 
 const Settings = () => {
   const theme = useTheme();
@@ -17,12 +17,21 @@ const Settings = () => {
   const { user } = UserAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [batchNo, setBatchNo] = useState("");
+  const [batchID, setBatchID] = useState("");
   const [email, setEmail] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [birthDate, setBirthday] = useState("");
   const [edit, setEdit] = useState(true);
 
+
+
+
+
+
+
+
+ 
+  
 
   useEffect(() => {
     if(user && user.email) {
@@ -31,7 +40,7 @@ const Settings = () => {
       querySnapshot.forEach((doc) => {
         setFirstName(doc.data().firstName);
         setLastName(doc.data().lastName);
-        setBatchNo(doc.data().batchNo);
+        setBatchID(doc.data().batchID);
         setEmail(doc.data().email);
         setMobileNumber(doc.data().mobileNumber);
         setBirthday(doc.data().birthDate);
@@ -115,7 +124,7 @@ const Settings = () => {
                   <TextField
                     label="Batch"
                     id="outlined-size-normal"
-                    value={batchNo}
+                    value={batchID}
                     sx={{ width: 250 }}
                     disabled
                   />
@@ -140,12 +149,14 @@ const Settings = () => {
             </Container>
           ) : (
             <Container maxWidth="lg" sx={{}}>
+              <form onSubmit={handleUpdate}>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                   <h4>First Name</h4>
                   <TextField
                     label="First Name"
                     id="outlined-size-normal"
+                    onChange={(e) => setFirstName(e.target.value)}
                     value={firstName}
                     sx={{ width: 250 }}
                   />
@@ -156,6 +167,7 @@ const Settings = () => {
                   <TextField
                     label="Last Name"
                     id="outlined-size-normal"
+                    onChange={(e) => setLastName(e.target.value)}
                     value={lastName}
                     sx={{ width: 250 }}
                   />
@@ -165,6 +177,7 @@ const Settings = () => {
                   <TextField
                     label="Mobile Number"
                     id="outlined-size-normal"
+                    onChange={(e) => setMobileNumber(e.target.value)}
                     value={mobileNumber}
                     sx={{ width: 250 }}
                   />
@@ -175,6 +188,7 @@ const Settings = () => {
                     label="Email"
                     id="outlined-size-normal"
                     value={email}
+                    disabled
                     sx={{ width: 250 }}
                   />
                 </Grid>
@@ -184,6 +198,7 @@ const Settings = () => {
                   <TextField
                     label="Date of Birth"
                     id="outlined-size-normal"
+                    onChange={(e) => setBirthday(e.target.value)}
                     value={birthDate}
                     sx={{ width: 250 }}
                   />
@@ -193,7 +208,8 @@ const Settings = () => {
                   <TextField
                     label="Batch"
                     id="outlined-size-normal"
-                    value={batchNo}
+                    onChange={(e) => setBatchID(e.target.value)}
+                    value={batchID}
                     sx={{ width: 250 }}
                   />
                 </Grid>
@@ -201,6 +217,7 @@ const Settings = () => {
               <Container>
                 <Button
                   variant="outlined"
+                  type="submit"
                   color="success"
                   onClick={() => setEdit(!edit)}
                   sx={{
@@ -228,6 +245,7 @@ const Settings = () => {
                   Cancel
                 </Button>
               </Container>
+                </form>
             </Container>
           )}
         </Box>
