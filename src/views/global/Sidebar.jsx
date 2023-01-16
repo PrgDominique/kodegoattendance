@@ -9,7 +9,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import { get, getDatabase, ref, child} from "firebase/database";
+import { get, getDatabase, ref, child, onValue} from "firebase/database";
 import { auth } from '../../firebase';
 import { UserAuth } from "../../context/AuthContext";
 
@@ -51,8 +51,8 @@ const Sidebar = () => {
     if (auth.currentUser) {
 
       const userId = auth.currentUser.uid;
-      const userRef = ref(db, 'users');
-      get(child(userRef, `${userId}`)).then((snapshot) => {
+      const userRef = ref(db, 'users/' + userId);
+      onValue(userRef, (snapshot) => {
         setFirstName(snapshot.val().firstName);
         setLastName(snapshot.val().lastName);
         setBatchID(snapshot.val().batchID);
