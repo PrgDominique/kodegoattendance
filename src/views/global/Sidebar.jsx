@@ -11,7 +11,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import { get, getDatabase, ref, child} from "firebase/database";
 import { auth } from '../../firebase';
-import { AuthContextProvider } from "../../context/AuthContext";
+import { AuthContextProvider,UserAuth } from "../../context/AuthContext";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -44,7 +44,7 @@ const Sidebar = () => {
   const [lastName, setLastName] = useState("");
   const [batchID, setBatchID] = useState("");
   
-  
+  const {User} = UserAuth();
   const db = getDatabase();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Sidebar = () => {
       console.log("No user is signed in.")
     }
 
-  }, [auth?.currentUser]);
+  }, [User?.currentUser]);
 
   return (
     <Box
