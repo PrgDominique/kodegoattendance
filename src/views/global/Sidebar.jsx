@@ -61,7 +61,7 @@ const Sidebar = () => {
       console.log("No user is signed in.")
     }
 
-  }, [User?.currentUser]);
+  }, [auth.currentUser]);
 
   return (
     <Box
