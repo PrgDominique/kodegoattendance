@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -46,13 +46,22 @@ const Sidebar = () => {
   
   
   const db = getDatabase();
-  const userId = auth.currentUser.uid;
-  const userRef = ref(db, 'users');
-  get(child(userRef, `${userId}`)).then((snapshot) => {
-    setFirstName(snapshot.val().firstName);
-    setLastName(snapshot.val().lastName);
-    setBatchID(snapshot.val().batchID);
-    });
+
+  useEffect(() => {
+    if (auth.currentUser) {
+
+      const userId = auth.currentUser.uid;
+      const userRef = ref(db, 'users');
+      get(child(userRef, `${userId}`)).then((snapshot) => {
+        setFirstName(snapshot.val().firstName);
+        setLastName(snapshot.val().lastName);
+        setBatchID(snapshot.val().batchID);
+      });
+    } else {
+      console.log("No user is signed in.")
+    }
+
+  }, [auth?.currentUser]);
 
   return (
     <Box
