@@ -11,7 +11,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import { get, getDatabase, ref, child} from "firebase/database";
 import { auth } from '../../firebase';
-import { AuthContextProvider,UserAuth } from "../../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -166,8 +166,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}          
             />
-
-
 
           </Box>
         </Menu>
