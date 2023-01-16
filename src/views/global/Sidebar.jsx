@@ -37,7 +37,9 @@ const Sidebar = () => {
   
   const userRef = ref(db, 'users');
   get(child(userRef, `${userId}`)).then((snapshot) => {
-    
+    setFirstName(snapshot.val().firstName);
+    setLastName(snapshot.val().lastName);
+    setBatchNo(snapshot.val().batchID);
     });
 
   return (
