@@ -9,6 +9,9 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
+import { get, getDatabase, ref, child} from "firebase/database";
+import { auth } from '../../firebase';
+import { AuthContextProvider } from "../../context/AuthContext";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -35,11 +38,20 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   
+
+  
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [batchID, setBatchID] = useState("");
+  
+  
+  const db = getDatabase();
+  const userId = auth.currentUser.uid;
   const userRef = ref(db, 'users');
   get(child(userRef, `${userId}`)).then((snapshot) => {
     setFirstName(snapshot.val().firstName);
     setLastName(snapshot.val().lastName);
-    setBatchNo(snapshot.val().batchID);
+    setBatchID(snapshot.val().batchID);
     });
 
   return (
@@ -107,10 +119,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Diomel Matura
+                  {firstName} {lastName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Student
+                  {batchID}
                 </Typography>
               </Box>
             </Box>
