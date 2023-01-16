@@ -75,12 +75,12 @@ const Sidebar = () => {
           setLastName(data.lastName);
           console.log("successful login")
         } catch (e) {
-          console.log("not login");
+          console.log(e.message);
         }
       };
       fetchData();
     }
-  }, [ db]);
+  }, [db, auth.currentUser ]);
 
 
 
