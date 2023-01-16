@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import {auth} from '../../firebase';
-import { getDatabase, ref, set, equalTo, orderByChild} from "firebase/database";
+import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
+import { auth } from "../../firebase";
+import { getDatabase, ref, set, equalTo, child,get } from "firebase/database";
 import { UserAuth } from "../../context/AuthContext";
-
-
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -40,54 +38,39 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [batchID, setBatchID] = useState("");
   const navigate = useNavigate();
   const db = getDatabase();
-  
-  const { user, logout } = UserAuth();
 
+  const { logout } = UserAuth();
 
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/login");
-      console.log("Signed out successfully")
-
+     
+      console.log("Signed out successfully");
     } catch (e) {
       console.log(e.message);
     }
   };
 
-
- // get firstName and lastName of firebase realtime database
-
-
+  // get firstName and lastName of firebase realtime database
 
   useEffect(() => {
     if (auth.currentUser) {
+
       const userId = auth.currentUser.uid;
-      const userRef = ref(db, "users/" + userId);
-
-      const fetchData = async () => {
-        try {
-          const snapshot = await userRef.once("value");
-          const data = snapshot.val();
-          setFirstName(data.firstName);
-          setLastName(data.lastName);
-          console.log("successful login")
-        } catch (e) {
-          console.log(e.message);
-        }
-      };
-      fetchData();
+      const userRef = ref(db, 'users');
+      get(child(userRef, `${userId}`)).then((snapshot) => {
+        setFirstName(snapshot.val().firstName);
+        setLastName(snapshot.val().lastName);
+        setBatchID(snapshot.val().batchID);
+      });
+    } else {
+      console.log("No user is signed in.")
     }
-  }, [db, auth.currentUser ]);
 
-
-
-  
-       
-  
-
+  }, [auth.currentUser]);
 
   return (
     <Box
@@ -157,7 +140,7 @@ const Sidebar = () => {
                   {firstName} {lastName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Student
+                 {batchID}
                 </Typography>
               </Box>
             </Box>
@@ -172,7 +155,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-<Item
+            <Item
               title="Attendance History"
               to="/attendance-history"
               icon={<HistoryOutlinedIcon />}
@@ -189,11 +172,8 @@ const Sidebar = () => {
             <Item
               title="Logout"
               icon={<LogoutOutlinedIcon />}
-              setSelected={handleLogout}    
+              setSelected={handleLogout}
             />
-
-
-
           </Box>
         </Menu>
       </ProSidebar>

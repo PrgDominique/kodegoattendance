@@ -19,25 +19,25 @@ const Main = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  useEffect(() => {
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-      const userRef = query(ref(db, "users/" + userId));
+  // useEffect(() => {
+  //   if (auth.currentUser) {
+  //     const userId = auth.currentUser.uid;
+  //     const userRef = query(ref(db, "users/" + userId));
 
-      const fetchData = async () => {
-        try {
-          const snapshot = await userRef.once("value");
-          const data = snapshot.val();
-          setFirstName(data.firstName);
-          setLastName(data.lastName);
-          console.log("successful login")
-        } catch (e) {
-          console.log("not login");
-        }
-      };
-      fetchData();
-    }
-  }, [ db]);
+  //     const fetchData = async () => {
+  //       try {
+  //         const snapshot = await userRef.once("value");
+  //         const data = snapshot.val();
+  //         setFirstName(data.firstName);
+  //         setLastName(data.lastName);
+  //         console.log("successful login")
+  //       } catch (e) {
+  //         console.log("not login");
+  //       }
+  //     };
+  //     fetchData();
+  //   }
+  // }, [ db]);
 
 
   
