@@ -58,48 +58,48 @@ const [newID, setNewID] = useState(null);
     }
   };
 
-  //create function timeout and update the timeout null to the current time in firebase firestore
-  // const timeout = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const userID = auth.currentUser.uid;
-  //     const q = query(
-  //       collection(db, "attendance"),
-  //       where("user_id", "==", userID),
-  //       where("date", "==", new Date().toLocaleDateString())
-  //     );
-     
-  //     const querySnapshot = await getDocs(q);
-  //     querySnapshot.forEach((doc) => {
-  //       updateDoc(doc.ref, {
-  //         timeout: new Date().toLocaleTimeString(),
-  //       });
-  //     });
-  //     setTimeoutDisabled(true);
-  //     setTimeInDisabled(false);
-
-  //     console.log("Successfully time out");
-  //   } catch (e) {
-  //     setError(e.message);
-  //     console.log("failed to timeout")
-  //   }
-  // };
-
-const timeout = async (e) => {
+  // create function timeout and update the timeout null to the current time in firebase firestore
+  const timeout = async (e) => {
     e.preventDefault();
+
     try {
-      updateDoc(doc(collection(db, "attendance"), newID), {
-        timeout: new Date().toLocaleTimeString(),
+      const userID = auth.currentUser.uid;
+      const q = query(
+        collection(db, "attendance"),
+        where("user_id", "==", userID),
+        where("date", "==", new Date().toLocaleDateString())
+      );
+     
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        updateDoc(doc.ref, {
+          timeout: new Date().toLocaleTimeString(),
+        });
       });
       setTimeoutDisabled(true);
       setTimeInDisabled(false);
+
       console.log("Successfully time out");
     } catch (e) {
       setError(e.message);
       console.log("failed to timeout")
     }
   };
+
+// const timeout = async (e) => {
+//     e.preventDefault();
+//     try {
+//       updateDoc(doc(collection(db, "attendance"), newID), {
+//         timeout: new Date().toLocaleTimeString(),
+//       });
+//       setTimeoutDisabled(true);
+//       setTimeInDisabled(false);
+//       console.log("Successfully time out");
+//     } catch (e) {
+//       setError(e.message);
+//       console.log("failed to timeout")
+//     }
+//   };
 
 
 
