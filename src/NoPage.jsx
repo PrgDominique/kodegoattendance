@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import "./ErrorPage.css";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import { Typography, useTheme } from "@mui/material";
 
 const NoPage = () => {
