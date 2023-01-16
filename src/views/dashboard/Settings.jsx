@@ -6,11 +6,12 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import { getDatabase, ref, set, equalTo, child,get } from "firebase/database";
+import { getDatabase, ref, set, equalTo, child,get,update } from "firebase/database";
 
 
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
+import { updatePhoneNumber } from "firebase/auth";
 
 const Settings = () => {
     const theme = useTheme();
@@ -26,16 +27,22 @@ const Settings = () => {
     const db = getDatabase();
     const {  } = UserAuth();
     
-
-    const handleUpdate = () => {
-
+    
+    const handleUpdate = (e) => {
+      e.preventDefault();
+      const userId = auth.currentUser.uid;
+      const userRef = ref(db, 'users');
+      update(child(userRef, `${userId}`), {
+        firstName: firstName,
+        lastName: lastName,
+        mobile: mobile,
+        birthDate: birthDate,
+      });
        
     }
 
-
     useEffect(() => {
         if (auth.currentUser) {
-    
           const userId = auth.currentUser.uid;
           const userRef = ref(db, 'users');
           get(child(userRef, `${userId}`)).then((snapshot) => {
@@ -137,7 +144,7 @@ return (
                   onClick={() => setEdit(!edit)}
                   sx={{
                     marginTop: 10,
-                    marginLeft: 5,
+                    marginLeft: -3,
                     height: 60,
                     width: 180,
                     fontSize: 16,
@@ -198,7 +205,7 @@ return (
                   <TextField
                     label="Date of Birth"
                     id="outlined-size-normal"
-                    onChange={(e) => setBirthday(e.target.value)}
+                    onChange={(e) => setBirthDate(e.target.value)}
                     value={birthDate}
                     sx={{ width: 250 }}
                   />
@@ -219,10 +226,10 @@ return (
                   variant="outlined"
                   type="submit"
                   color="success"
-                  onClick={() => setEdit(!edit)}
+                  onClick={handleUpdate}
                   sx={{
                     marginTop: 10,
-                    marginLeft: 5,
+                    marginLeft: -3,
                     height: 60,
                     width: 180,
                     fontSize: 16,
@@ -242,7 +249,7 @@ return (
                     fontSize: 16,
                   }}
                 >
-                  Cancel
+                  Close
                 </Button>
               </Container>
                 </form>
