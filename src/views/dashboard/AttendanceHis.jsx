@@ -3,6 +3,7 @@ import DataTable from "../../components/DataTable";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { tokens } from "../../theme";
+import PieChart from "../../components/PieChart"
 
 const AttendanceHis = () => {
     const theme = useTheme();
@@ -23,10 +24,11 @@ return (
     height: 600,
    
  }}>
-    <Container maxWidth="lg" sx={{marginTop: 25, marginLeft: 20}}>
+    <Container maxWidth="lg" sx={{marginLeft: 40}}>
+        <PieChart />
+    </Container>
  <DataTable />
 
-    </Container>
 
  </Box>
  </>
