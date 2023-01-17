@@ -5,7 +5,6 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -14,6 +13,8 @@ import { useEffect, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { db } from "../../firebase/FirebaseConfig";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 const Settings = () => {
   const theme = useTheme();
