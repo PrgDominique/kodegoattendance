@@ -9,10 +9,10 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
-import { get, getDatabase, ref, child, onValue} from "firebase/database";
+import { getDatabase, ref as ref_database, onValue} from "firebase/database";
 import { auth } from '../../firebase';
 import { UserAuth } from "../../context/AuthContext";
-
+import { getStorage, ref as ref_storage, getDownloadURL } from "firebase/storage";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -47,11 +47,22 @@ const Sidebar = () => {
   const {User} = UserAuth();
   const db = getDatabase();
 
+  const storage = getStorage();
+  const imageRef = ref_storage(storage, 'users/0CGGyTjhqSNcjRbDcmkFqRWkhoN2/image.png');
+  const [url, setUrl] = useState();
+  getDownloadURL(imageRef)
+    .then((url) => {
+      setUrl(url);
+      console.log(url);
+    }).catch((error) => {
+      console.log(error.message, "error getting the image url");
+    });
+
   useEffect(() => {
     if (auth.currentUser) {
 
       const userId = auth.currentUser.uid;
-      const userRef = ref(db, 'users/' + userId);
+      const userRef = ref_database(db, 'users/' + userId);
       onValue(userRef, (snapshot) => {
         setFirstName(snapshot.val().firstName);
         setLastName(snapshot.val().lastName);
@@ -117,7 +128,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`./src/assets/user.png`}
+                  src={url}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
