@@ -6,10 +6,8 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import { getDatabase, ref, child,get,update } from "firebase/database";
-
-
-
+import { getDatabase, ref as ref_database, child,get,update } from "firebase/database";
+import { ref as ref_storage, uploadBytes, getDownloadURL,getStorage } from "firebase/storage";
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
 
@@ -26,13 +24,45 @@ const Settings = () => {
     const [batchID, setBatchID] = useState("");
     const [edit, setEdit] = useState(true);
     const db = getDatabase();
-    const {  } = UserAuth();
+    const storage = getStorage();
+   
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState(null);
+    
+    const handleImageChange = (e) => {
+      if (e.target.files[0]) {
+        setImage(e.target.files[0]);
+      }
+    };
+
+    const handleUpload = () => {
+      const userId = auth.currentUser.uid;
+      const imageRef = ref_storage(storage, 'users/'+userId+'/'+'image.png');
+  
+      uploadBytes(imageRef, image)
+        .then(() => {
+          getDownloadURL(imageRef)
+            .then((url) => {
+              setUrl(url);
+            })
+            .catch((error) => {
+              console.log(error.message, "error getting the image url");
+            });
+          setImage(null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
+
+  
+
     
     
     const handleUpdate = (e) => {
       e.preventDefault();
       const userId = auth.currentUser.uid;
-      const userRef = ref(db, 'users');
+      const userRef = ref_database(db, 'users');
       update(child(userRef, `${userId}`), {
         firstName: firstName,
         lastName: lastName,
@@ -45,7 +75,7 @@ const Settings = () => {
     useEffect(() => {
         if (auth.currentUser) {
           const userId = auth.currentUser.uid;
-          const userRef = ref(db, 'users');
+          const userRef = ref_database(db, 'users');
           get(child(userRef, `${userId}`)).then((snapshot) => {
             setFirstName(snapshot.val().firstName);
             setLastName(snapshot.val().lastName);
@@ -157,7 +187,8 @@ return (
                 <Button
                   variant="outlined"
                   color="success"
-                  
+                  component="label"
+                  onClick={handleImageChange}
                   sx={{
                     marginTop: 10,
                     marginLeft: 10,
@@ -167,6 +198,7 @@ return (
                   }}
                 >
                   Upload Profile
+                  <input type="file" onChange={handleUpload} hidden />
                 </Button>
 
                 <Button
