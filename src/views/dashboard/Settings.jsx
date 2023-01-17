@@ -11,7 +11,7 @@ import { getDatabase, ref, child, get, update } from "firebase/database";
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
 import OpenUpload from "../../components/OpenUpload";
-
+import ChangePassword from "../../components/ChangePassword";
 
 const style = {
   position: 'absolute',
@@ -34,6 +34,11 @@ const Settings = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [openpass, setOpenpass] = React.useState(false);
+  const handleOpenpass = () => setOpenpass(true);
+  const handleClosepass = () => setOpenpass(false);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobileNumber] = useState("");
@@ -171,9 +176,7 @@ const Settings = () => {
                 >
                   Edit Account
                 </Button>
-
                
-
                 <Button
                   variant="outlined"
                   color="success"
@@ -200,9 +203,11 @@ const Settings = () => {
                   </Box>
                 </Modal>
 
+
                 <Button
                   variant="outlined"
                   color="success"
+                  onClick={handleOpenpass}
                   sx={{
                     marginTop: 10,
                     marginLeft: 10,
@@ -213,6 +218,18 @@ const Settings = () => {
                 >
                   Change Password
                 </Button>
+
+                <Modal
+                  open={openpass}
+                  onClose={handleClosepass}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <ChangePassword/>
+                  </Box>
+                </Modal>
+
               </Container>
             </Container>
           ) : (
