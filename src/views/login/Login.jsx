@@ -7,11 +7,13 @@ import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../../context/AuthContext';
+import Logo from '../global/Logo';
  
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const { signIn } = UserAuth();
 
@@ -54,6 +56,7 @@ const Login = () => {
             justifyContent="center"
             style={{ minHeight: "80vh" }}
           >
+            <Logo />
               <Paper elevation={5} sx={{ padding: 4 }}>
               <form onSubmit={handleLogin}>
                 <Grid container direction="column" spacing={0.5}>
@@ -125,6 +128,7 @@ const Login = () => {
                         Sign up
                       </NavLink>
                     </h4>
+                {error && <h4 style={{ color: "red" }}>Your Email or Password is Incorrect</h4>}
                   </Grid>
                 </Grid>
               </form>

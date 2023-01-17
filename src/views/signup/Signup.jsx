@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { getDatabase, ref, set } from "firebase/database";
 import { auth } from '../../firebase';
+import Logo from '../global/Logo';
  
 const Signup = () => {
     const navigate = useNavigate();
@@ -61,13 +62,17 @@ const Signup = () => {
     }
  
   return (
-    //Your code here
+    //give me clickable link that will take me to the login page if i already have an account
+    <>
+    
     <Container fixed>
+      <Logo />
       <h1>Sign up</h1>
       <h4>
         Let's get you all setup so you can verify your personal account and
         begin setting up your profile.
       </h4>
+      
       <form onSubmit={handleSignup}>
         <Grid container spacing={5}>
           <Grid item xs={6}>
@@ -112,6 +117,10 @@ const Signup = () => {
               value={batchID}
               onChange={(e) => setBatchID(e.target.value)}
             />
+            <Grid item sm={12}>
+
+<h3>Already have an account?  <NavLink to="/"> Login</NavLink></h3>
+</Grid>
           </Grid>
           <Grid item xs={6}>
             <h4>Last Name</h4>
@@ -149,13 +158,14 @@ const Signup = () => {
             <TextField
               type="text"
               fullWidth
-              label="Birth Date"
+              label="mm/dd/yyyy"
               placeholder="Type your Birth Date"
               variant="outlined"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
             />
             </Grid>
+            
 
             <Grid item>
             <Button
@@ -180,6 +190,7 @@ const Signup = () => {
         </Grid>
       </form>
     </Container>
+    </>
   );
 }
  

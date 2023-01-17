@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import Signup from "./views/signup/Signup";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NoPage from "./NoPage";
 
 
 
@@ -16,7 +17,7 @@ function App() {
     <AuthContextProvider>
             <Routes>
               <Route path="/" element={<Login/>} />
-            
+              <Route path="*" element={<NoPage />} />
               <Route path="/signup" element={<Signup />} />
               
               <Route element={<Layout />}>

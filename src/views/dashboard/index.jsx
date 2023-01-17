@@ -64,6 +64,7 @@ const Main = () => {
       const userId = auth.currentUser.uid;
       const date = new Date().toLocaleDateString();
       set(ref(db, 'attendance/' + userId + '/' + date), {
+        user_id: userId,
         timeIn: new Date().toLocaleTimeString(),
         timeOut: null,
         status: "present",

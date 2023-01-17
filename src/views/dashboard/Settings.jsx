@@ -5,8 +5,9 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getDatabase, ref, child, get, update } from "firebase/database";
+
 
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
@@ -22,8 +23,11 @@ const Settings = () => {
   const [birthDate, setBirthDate] = useState("");
   const [batchID, setBatchID] = useState("");
   const [edit, setEdit] = useState(true);
+  const fileInputRef = useRef(null);
+const [imageFile, setImageFile] = useState(null);
   const db = getDatabase();
   const {} = UserAuth();
+
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -237,9 +241,16 @@ const Settings = () => {
                   <Grid item xs={12} md={6}>
                     <Box sx={{marginTop: 3, marginLeft: 2}}>
 
-                    <Button variant="contained" component="label" sx={{fontSize: 16}}>
-                      Upload Profile Picture
-                      <input type="file" hidden />
+                    <Button variant="contained" component="label" sx={{fontSize: 16}}
+                    
+                    
+                    >
+                      Upload Photo
+                      <input type="file"
+                      
+                       hidden
+                       onChange={(e) => setImageFile(e.target.files[0])}
+                       />
                     </Button>
                     </Box>
                   </Grid>
