@@ -48,7 +48,7 @@ const Signup = () => {
                   batchID: batchID,
                 });
           
-            navigate("/login")
+            navigate("/")
             // ...
         })
         .catch((error) => {
