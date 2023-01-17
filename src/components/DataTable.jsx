@@ -50,7 +50,7 @@ return (
 <>
 
 <Box sx={{ height: 371, width: "70%", ml: 6, mt: 2, boxShadow: 5 }}>
-        <DataGrid rows={dataload}  columns={columns} pageSize={5} getRowId={row => `${row.user_id}`} />
+        <DataGrid rows={dataload}  columns={columns} pageSize={5} getRowId={row => `${row.user_id}-${row.timeIn}`} />
       </Box>
       
       {error && <div>{error}</div>}
