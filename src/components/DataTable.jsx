@@ -26,7 +26,7 @@ const columns = [
 
     //get the data of attendance from firestore db with the current login user id
     useEffect(() => {
-        if(auth.currentUser !== null){
+        if(auth.currentUser){
             const userID = auth.currentUser.uid;
             const q = query(collection(db, "attendance"), where("user_id", "==", userID));
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -35,6 +35,7 @@ const columns = [
                     ...doc.data(),
                 }));
                 setDataLoad(data);
+                
             });
             return unsubscribe;
         } else {
