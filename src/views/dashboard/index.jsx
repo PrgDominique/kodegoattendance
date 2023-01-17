@@ -28,6 +28,7 @@ const Main = () => {
             timeIn: new Date().toLocaleTimeString(),
             timeOut: null,
             status: "present",
+            date: new Date().toLocaleDateString()
           });
           alert("Successfully time in");
         }

@@ -11,6 +11,7 @@ const columns = [
     {field: "timeIn", headerName: "Time In", width: 200 },
     {field: "timeOut", headerName: "Time Out", width: 200 },
     {field: "status", headerName: "Status", width: 200 },
+    {field: "date", headerName: "Date", width: 200 }
   
   
   ];
@@ -49,8 +50,8 @@ const columns = [
 return (
 <>
 
-<Box sx={{ height: 371, width: "70%", ml: 6, mt: 2, boxShadow: 5 }}>
-        <DataGrid rows={dataload}  columns={columns} pageSize={5} getRowId={row => `${row.user_id}`} />
+<Box sx={{ height: 470, width: "70%", ml: 6, mt: 2, boxShadow: 5 }}>
+        <DataGrid rows={dataload}  columns={columns} pageSize={6} getRowId={row => `${row.user_id}-${row.timeIn}`} />
       </Box>
       
       {error && <div>{error}</div>}
