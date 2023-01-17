@@ -6,12 +6,13 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import { getDatabase, ref, set, equalTo, child,get,update } from "firebase/database";
+import { getDatabase, ref, child,get,update } from "firebase/database";
+
 
 
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
-import { updatePhoneNumber } from "firebase/auth";
+
 
 const Settings = () => {
     const theme = useTheme();
@@ -144,7 +145,7 @@ return (
                   onClick={() => setEdit(!edit)}
                   sx={{
                     marginTop: 10,
-                    marginLeft: -3,
+                    marginLeft: 5,
                     height: 60,
                     width: 180,
                     fontSize: 16,
@@ -152,6 +153,38 @@ return (
                 >
                   Edit Account
                 </Button>
+
+                <Button
+                  variant="outlined"
+                  color="success"
+                  
+                  sx={{
+                    marginTop: 10,
+                    marginLeft: 10,
+                    height: 60,
+                    width: 180,
+                    fontSize: 16,
+                  }}
+                >
+                  Upload Profile
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  color="success"
+                  
+                  sx={{
+                    marginTop: 10,
+                    marginLeft: 10,
+                    height: 60,
+                    width: 180,
+                    fontSize: 16,
+                  }}
+                >
+                  Change Password
+                </Button>
+
+                
               </Container>
             </Container>
           ) : (
