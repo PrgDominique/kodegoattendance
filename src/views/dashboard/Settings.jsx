@@ -150,19 +150,7 @@ const Settings = () => {
                   Edit Account
                 </Button>
 
-                <Button
-                  variant="outlined"
-                  color="success"
-                  sx={{
-                    marginTop: 10,
-                    marginLeft: 10,
-                    height: 60,
-                    width: 180,
-                    fontSize: 16,
-                  }}
-                >
-                  Upload Profile
-                </Button>
+               
 
                 <Button
                   variant="outlined"
@@ -242,14 +230,18 @@ const Settings = () => {
                       id="outlined-size-normal"
                       onChange={(e) => setBatchID(e.target.value)}
                       value={batchID}
+                      disabled
                       sx={{ width: 250 }}
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <Button variant="contained" component="label">
-                      Upload File
+                    <Box sx={{marginTop: 3, marginLeft: 2}}>
+
+                    <Button variant="contained" component="label" sx={{fontSize: 16}}>
+                      Upload Profile Picture
                       <input type="file" hidden />
                     </Button>
+                    </Box>
                   </Grid>
                 </Grid>
                 <Container>
