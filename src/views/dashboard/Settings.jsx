@@ -35,6 +35,9 @@ const Settings = () => {
       mobile: mobile,
       birthDate: birthDate,
     });
+
+    setEdit(!edit);
+    console.log("Updated");
   };
 
   useEffect(() => {

@@ -15,26 +15,12 @@ const Topbar = () => {
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
      
-       <Typography variant="h4" sx={{ color: colors.grey[100] }}>
+       
       <DateTime />
-    </Typography>
+ 
   
 
-      <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <LogoutOutlinedIcon />
-        </IconButton>
-      </Box>
+    
     </Box>
   );
 };

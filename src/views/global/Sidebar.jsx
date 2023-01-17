@@ -130,7 +130,9 @@ const Sidebar = () => {
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
-              <Box textAlign="center">
+              <Box textAlign="center" >
+                <Box  sx={{marginTop: 2}}>
+
                 <Typography
                   variant="h2"
                   color={colors.grey[100]}
@@ -139,9 +141,13 @@ const Sidebar = () => {
                 >
                   {firstName} {lastName}
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                </Box>
+                <Box sx={{marginTop: 2}}>
+
+                <Typography variant="h2" color={colors.greenAccent[500]}>
                  {batchID}
                 </Typography>
+                </Box>
               </Box>
             </Box>
           )}
