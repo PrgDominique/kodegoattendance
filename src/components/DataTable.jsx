@@ -11,8 +11,7 @@ const columns = [
     {field: "timeIn", headerName: "Time In", width: 200 },
     {field: "timeOut", headerName: "Time Out", width: 200 },
     {field: "status", headerName: "Status", width: 200 },
-  
-  
+    {field: "date", headerName: "Date", width: 200 }
   ];
 
 
