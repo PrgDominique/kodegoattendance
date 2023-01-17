@@ -44,7 +44,7 @@ const OpenUpload = () => {
             window.location.reload(false);
           })
           .catch((error) => {
-            console.log(error.message, "error getting the image url");
+            console.log(error.message, "error getting the image url :)");
           });
         setImage(null);
       })
