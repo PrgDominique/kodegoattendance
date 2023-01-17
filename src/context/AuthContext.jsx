@@ -3,7 +3,7 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword,
 signOut, 
 onAuthStateChanged} from 'firebase/auth'
 
-import {auth} from '../firebase/FirebaseConfig'
+import { auth } from '../firebase';
  
 const UserContext = createContext();
 

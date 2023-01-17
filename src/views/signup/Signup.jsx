@@ -1,90 +1,70 @@
-import { TextField } from "@mui/material";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import { spacing } from "@mui/system";
-import { UserAuth } from "../../context/AuthContext";
-import { useEffect, useState } from "react";
-import { db, auth } from "../../firebase/FirebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import dayjs from "dayjs";
-import Logo from "../global/Logo";
+import React, {useEffect, useState} from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Container, Grid, Paper,TextField} from "@mui/material";
 import Button from '@mui/material/Button';
-
+import {  createUserWithEmailAndPassword  } from 'firebase/auth';
+import { getDatabase, ref, set } from "firebase/database";
+import { auth } from '../../firebase';
+import Logo from '../global/Logo';
+ 
 const Signup = () => {
-  const { createUser } = UserAuth();
-  const [email, setEmail] = useState("");
-  const [errpassword, setErrPassword] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [birthDate, setBirthDate] = useState((""));
-  const [batchNo, setBatchNo] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+ 
+    const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("")
+    const [birthDate, setBirthDate] = useState((""))
+    const [batchID, setBatchID] = useState("")
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is authenticated, redirect to dashboard
-        navigate("/dashboard");
-      }
-    });
-
-    return unsubscribe;
-  }, [navigate]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      console.error("Passwords do not match");
-      setErrPassword("Passwords do not match");
-      return;
-    }
-
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !mobileNumber ||
-      !batchNo ||
-      !birthDate
-    ) {
-      console.error("All fields are required.");
-      setError("All fields are required");
-      return;
-    }
-
-    try {
-      const user = await createUser(email, password);
-      console.log("Successfully created new user");
-      const userID = user.user.uid;
-      await addDoc(collection(db, "users"), {
-        userID,
-        email,
-        firstName,
-        lastName,
-        mobileNumber,
-        birthDate,
-        batchNo,
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+          // User is authenticated, redirect to dashboard
+          navigate("/dashboard");
+        }
       });
-      navigate("/login");
-    } catch (e) {
-      setError(e.message);
-      console.log(e.message);
+  
+      return unsubscribe;
+    }, [navigate]);
+ 
+    const handleSignup = async (e) => {
+      e.preventDefault()
+     
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            
+                const db = getDatabase();
+                const userId = auth.currentUser.uid;
+                set(ref(db, 'users/' + userId), {
+                  userId,
+                  firstName: firstName,
+                  lastName: lastName,
+                  email: email,
+                  mobile: mobileNumber,
+                  birthDate: birthDate,
+                  batchID: batchID,
+                });
+          
+            navigate("/login")
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+            // ..
+        });
+ 
+   
     }
-  };
-
+ 
   return (
-    //Your code here
+    //give me clickable link that will take me to the login page if i already have an account
+    <>
+    
     <Container fixed>
       <Logo />
       <h1>Sign up</h1>
@@ -92,7 +72,8 @@ const Signup = () => {
         Let's get you all setup so you can verify your personal account and
         begin setting up your profile.
       </h4>
-      <form onSubmit={handleSubmit}>
+      
+      <form onSubmit={handleSignup}>
         <Grid container spacing={5}>
           <Grid item xs={6}>
             <h4>First Name</h4>
@@ -102,7 +83,6 @@ const Signup = () => {
               label="First Name"
               placeholder="Type your first name"
               variant="outlined"
-              {...(error && { error: true, helperText: error })}
               className="m-5"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -114,7 +94,6 @@ const Signup = () => {
               label="Mobile Number"
               placeholder="Type your Mobile Number"
               variant="outlined"
-              {...(error && { error: true, helperText: error })}
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
             />
@@ -125,7 +104,6 @@ const Signup = () => {
               label="Password"
               placeholder="Type your password"
               variant="outlined"
-              {...(errpassword && { error: true, helperText: errpassword })}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -133,13 +111,16 @@ const Signup = () => {
             <h4>Batch No.</h4>
             <TextField
               type="text"
-              label="Batch No."
-              placeholder="Type your batch no."
+              label="Batch ID."
+              placeholder="Type your batch ID."
               variant="outlined"
-              {...(error && { error: true, helperText: error })}
-              value={batchNo}
-              onChange={(e) => setBatchNo(e.target.value)}
+              value={batchID}
+              onChange={(e) => setBatchID(e.target.value)}
             />
+            <Grid item sm={12}>
+
+<h3>Already have an account?  <NavLink to="/"> Login</NavLink></h3>
+</Grid>
           </Grid>
           <Grid item xs={6}>
             <h4>Last Name</h4>
@@ -149,7 +130,6 @@ const Signup = () => {
               label="Last Name"
               placeholder="Type your last name"
               variant="outlined"
-              {...(error && { error: true, helperText: error })}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -160,7 +140,6 @@ const Signup = () => {
               label="Email"
               placeholder="Type your email"
               variant="outlined"
-              {...(error && { error: true, helperText: error })}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -171,7 +150,6 @@ const Signup = () => {
               label="Password"
               placeholder="Retype your password to confirm"
               variant="outlined"
-              {...(errpassword && { error: true, helperText: errpassword })}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -180,14 +158,14 @@ const Signup = () => {
             <TextField
               type="text"
               fullWidth
-              label="Birth Date"
+              label="mm/dd/yyyy"
               placeholder="Type your Birth Date"
               variant="outlined"
-              {...(error && { error: true, helperText: error })}
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
             />
             </Grid>
+            
 
             <Grid item>
             <Button
@@ -197,10 +175,7 @@ const Signup = () => {
                 backgroundColor: "#2196f3",
                 padding: "18px, 36px",
                 fontsize: "18px",
-                fontWeight: "bold",
-
-                
-                
+                fontWeight: "bold",            
               }}
               variant="contained"
               sx={{ mt: 3, mb: 3 }}
@@ -210,12 +185,13 @@ const Signup = () => {
             </Button>
           </Grid>
 
-            {/* <button>Sign Up</button> */}
+      
           </Grid>
         </Grid>
       </form>
     </Container>
+    </>
   );
-};
-
-export default Signup;
+}
+ 
+export default Signup

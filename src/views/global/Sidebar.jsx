@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,48 +8,26 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
+import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
+import { auth } from "../../firebase";
+import { getDatabase, ref, set, equalTo, child,get } from "firebase/database";
 import { UserAuth } from "../../context/AuthContext";
-import { db, auth } from "../../firebase/FirebaseConfig";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  onSnapshot,
-} from "firebase/firestore";
-import React from 'react'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  const { user, logout } = UserAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/login");
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
   return (
-    <>
-      <MenuItem
-        active={selected === title}
-        style={{
-          color: colors.grey[100],
-        }}
-        onClick={title === "Logout" ? handleLogout : () => setSelected(title)}
-        icon={icon}
-      >
-        <Typography>{title}</Typography>
-        <Link to={to} />
-      </MenuItem>
-    </>
+    <MenuItem
+      active={selected === title}
+      style={{
+        color: colors.grey[100],
+      }}
+      onClick={() => setSelected(title)}
+      icon={icon}
+    >
+      <Typography>{title}</Typography>
+      <Link to={to} />
+    </MenuItem>
   );
 };
 
@@ -58,41 +36,43 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-
-//get the first name and last name in firebase and replace the name in the sidebar and add batch and replace the student name in the sidebar
-
-
-
-
-  const { user } = UserAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [batchNo, setBatchNo] = useState("");
+  const [batchID, setBatchID] = useState("");
+  const navigate = useNavigate();
+  const db = getDatabase();
+
+  const { logout } = UserAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+     
+      console.log("Signed out successfully");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  // get firstName and lastName of firebase realtime database
 
   useEffect(() => {
-    const q = query(
-      collection(db, "users"),
-      where("email", "==", user.email)
-    );
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        setFirstName(doc.data().firstName);
-        setLastName(doc.data().lastName);
-        setBatchNo(doc.data().batchNo);
+    if (auth.currentUser) {
+
+      const userId = auth.currentUser.uid;
+      const userRef = ref(db, 'users');
+      get(child(userRef, `${userId}`)).then((snapshot) => {
+        setFirstName(snapshot.val().firstName);
+        setLastName(snapshot.val().lastName);
+        setBatchID(snapshot.val().batchID);
       });
-    });
-    return unsubscribe;
-  }, [user.email]);
+    } else {
+      console.log("No user is signed in.")
+    }
 
-
-
-
-
-
-
+  }, [auth.currentUser]);
 
   return (
-    <React.Fragment>
     <Box
       sx={{
         "& .pro-sidebar-inner": {
@@ -139,8 +119,6 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          {/* test */}
-
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
@@ -148,31 +126,31 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`'../../assets/user.png'`}
+                  src={`./src/assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
-              <Box textAlign="center">
+              <Box textAlign="center" >
+                <Box  sx={{marginTop: 2}}>
+
                 <Typography
-                  variant="h3"
+                  variant="h2"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {firstName} {lastName} 
+                  {firstName} {lastName}
                 </Typography>
-                <Typography variant="h3" color={colors.greenAccent[500] }>
-                  <Box sx={{marginTop: 2}}>
+                </Box>
+                <Box sx={{marginTop: 2}}>
 
-                  {batchNo}
-                  </Box>
-
+                <Typography variant="h2" color={colors.greenAccent[500]}>
+                 {batchID}
                 </Typography>
+                </Box>
               </Box>
             </Box>
           )}
-
-          {/* end test */}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
@@ -182,15 +160,16 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
             <Item
               title="Attendance History"
               to="/attendance-history"
-              icon={<ReportOutlinedIcon />}
+              icon={<HistoryOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Account Settings"
+              title="Settings"
               to="/settings"
               icon={<SettingsOutlinedIcon />}
               selected={selected}
@@ -199,15 +178,12 @@ const Sidebar = () => {
             <Item
               title="Logout"
               icon={<LogoutOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
+              setSelected={handleLogout}
             />
           </Box>
         </Menu>
       </ProSidebar>
-   
     </Box>
-    </React.Fragment>
   );
 };
 
