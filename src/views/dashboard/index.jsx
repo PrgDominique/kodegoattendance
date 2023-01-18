@@ -19,7 +19,20 @@ const Main = () => {
       const userId = auth.currentUser.uid;
       const date = moment().format('MM-DD-YYYY');
       const attendanceRef = ref(db, 'attendance/');
-      
+
+      // time in if late or present 
+      const today = new Date().toLocaleDateString();
+      const timeIn = new Date(`${today} 8:00:00`);
+      const check = new Date() < timeIn;
+      let status = '';
+      if (check) {
+        status = 'Present';
+      }else if (!check){
+        status = 'Late';
+      }else {
+        status = 'Absent';
+      }
+      // end
       get(child(attendanceRef, `${userId}/${date}`)).then((snapshot) => {
         if (snapshot.exists()) {
           alert("You already time in");
@@ -27,7 +40,7 @@ const Main = () => {
           set(ref(db, 'attendance/' + userId + '/' + date), {
             timeIn: new Date().toLocaleTimeString(),
             timeOut: null,
-            status: "present",
+            status: status,
             date: new Date().toLocaleDateString()
           });
           alert("Successfully time in");
