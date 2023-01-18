@@ -24,9 +24,9 @@ const Settings = () => {
   const [batchID, setBatchID] = useState("");
   const [edit, setEdit] = useState(true);
   const fileInputRef = useRef(null);
-const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const db = getDatabase();
-  const {} = UserAuth();
+  const {User} = UserAuth();
 
 
   const handleUpdate = (e) => {
