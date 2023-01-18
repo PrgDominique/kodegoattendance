@@ -11,7 +11,7 @@ import { getDatabase, ref, child, get, update } from "firebase/database";
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
 import OpenUpload from "../../components/OpenUpload";
-import ChangePassword from "../../components/ChangePassword";
+
 
 const style = {
   position: 'absolute',
@@ -168,7 +168,7 @@ const Settings = () => {
                   onClick={() => setEdit(!edit)}
                   sx={{
                     marginTop: 10,
-                    marginLeft: 5,
+                    marginLeft: -3,
                     height: 60,
                     width: 180,
                     fontSize: 16,
@@ -200,33 +200,6 @@ const Settings = () => {
                 >
                   <Box sx={style}>
                     <OpenUpload/>
-                  </Box>
-                </Modal>
-
-
-                <Button
-                  variant="outlined"
-                  color="success"
-                  onClick={handleOpenpass}
-                  sx={{
-                    marginTop: 10,
-                    marginLeft: 10,
-                    height: 60,
-                    width: 180,
-                    fontSize: 16,
-                  }}
-                >
-                  Change Password
-                </Button>
-
-                <Modal
-                  open={openpass}
-                  onClose={handleClosepass}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style}>
-                    <ChangePassword/>
                   </Box>
                 </Modal>
 

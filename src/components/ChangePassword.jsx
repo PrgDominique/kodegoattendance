@@ -5,9 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const handleChange = () => {
 
-}
 
 
 const ChangePassword = () => {
@@ -18,6 +16,9 @@ const ChangePassword = () => {
     const [newPassword, setPass] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState("");
     
+    const handleChange = () => {
+      updatePassword(user, newPassword);
+    }
    
   return (
     <>
