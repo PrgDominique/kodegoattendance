@@ -5,6 +5,7 @@ import { get, getDatabase, onValue, ref, set, update,child} from "firebase/datab
 import { auth } from '../../firebase';
 import { useState, useEffect } from "react";
 import moment from 'moment';
+import DateTime from '../../components/DateTime';
 
 const Main = () => {
   const theme = useTheme();
@@ -79,8 +80,8 @@ const Main = () => {
 
 
   return (
-    <Box m="100px" ml="35%">  
-      <Box display="flex" justifyItems="center" alignItems="center">
+    <Box m="100px" ml="35%" sx={{marginTop: 30}}>  
+      <Box sx={{marginTop: 1}}>
         <Box>
           <Button
           onClick={timeIn} 
