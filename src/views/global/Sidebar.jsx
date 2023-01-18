@@ -124,8 +124,8 @@ const Sidebar = () => {
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
               <Avatar
-                  alt="/broken-image.jpg"
-                  src={`./src/assets/user.png`}
+                  alt=""
+                  src={`./srcs/assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                   sx={{ width: 150, height: 150 }}
                 />
