@@ -12,6 +12,7 @@ import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import { auth } from "../../firebase";
 import { getDatabase, ref, set, equalTo, child,get } from "firebase/database";
 import { UserAuth } from "../../context/AuthContext";
+import Avatar from "@mui/material/Avatar";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -122,12 +123,11 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`./src/assets/user.png`}
+              <Avatar
+                  alt="/broken-image.jpg"
+                  src={url}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
+                  sx={{ width: 150, height: 150 }}
                 />
               </Box>
               <Box textAlign="center" >
