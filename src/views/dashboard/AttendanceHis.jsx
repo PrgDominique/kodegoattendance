@@ -24,7 +24,6 @@ return (
    
  }}>
    <Container maxWidth="lg" sx={{marginLeft: 40}}>
-        <PieChart />
     </Container>
  <DataTable />
 
