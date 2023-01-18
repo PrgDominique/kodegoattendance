@@ -79,8 +79,6 @@ const Sidebar = () => {
       const imageRef = ref_storage(storage, 'users/'+userID+'/'+'image.png');
       getDownloadURL(imageRef)
       .then((url) => {
-        // const img = document.getElementById('avatar');
-        // img.setAttribute = url;
         setUrl(url);
         console.log(url);
       }).catch((error) => {

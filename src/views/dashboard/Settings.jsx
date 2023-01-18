@@ -1,4 +1,5 @@
-import { Typography, useTheme } from "@mui/material";
+import React from "react";
+import { Typography, useTheme, Modal } from "@mui/material";
 import { tokens } from "../../theme";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,15 +8,32 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useEffect, useRef, useState } from "react";
 import { getDatabase, ref, child, get, update } from "firebase/database";
-
-
 import { auth } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
+import OpenUpload from "../../components/OpenUpload";
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  height: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 20,
+  p: 4,
+};
+
+
 
 const Settings = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobileNumber] = useState("");
@@ -159,6 +177,32 @@ const Settings = () => {
                 <Button
                   variant="outlined"
                   color="success"
+                  onClick={handleOpen}
+                  sx={{
+                    marginTop: 10,
+                    marginLeft: 10,
+                    height: 60,
+                    width: 180,
+                    fontSize: 16,
+                  }}
+                >
+                  Upload Photo
+                </Button>
+
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <OpenUpload/>
+                  </Box>
+                </Modal>
+
+                <Button
+                  variant="outlined"
+                  color="success"
                   sx={{
                     marginTop: 10,
                     marginLeft: 10,
@@ -238,22 +282,7 @@ const Settings = () => {
                       sx={{ width: 250 }}
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
-                    <Box sx={{marginTop: 3, marginLeft: 2}}>
 
-                    <Button variant="contained" component="label" sx={{fontSize: 16}}
-                    
-                    
-                    >
-                      Upload Photo
-                      <input type="file"
-                      
-                       hidden
-                       onChange={(e) => setImageFile(e.target.files[0])}
-                       />
-                    </Button>
-                    </Box>
-                  </Grid>
                 </Grid>
                 <Container>
                   <Button
