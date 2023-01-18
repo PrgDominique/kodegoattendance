@@ -45,19 +45,11 @@ const Sidebar = () => {
   const db = getDatabase();
   const { logout } = UserAuth();
   const storage = getStorage();
-  const userID = auth.currentUser.uid;
-  const imageRef = ref_storage(storage, 'users/'+userID+'/'+'image.png');
+  
+  
   const [url, setUrl] = useState();
  
-  getDownloadURL(imageRef)
-    .then((url) => {
-      // const img = document.getElementById('avatar');
-      // img.setAttribute = url;
-      setUrl(url);
-      console.log(url);
-    }).catch((error) => {
-      console.log(error.message, "error getting the image url");
-    });
+  
 
   const handleLogout = async () => {
     try {
@@ -73,7 +65,8 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (auth.currentUser) {
-
+      
+      
       const userId = auth.currentUser.uid;
       const userRef = ref_database(db, 'users');
       get(child(userRef, `${userId}`)).then((snapshot) => {
@@ -81,6 +74,21 @@ const Sidebar = () => {
         setLastName(snapshot.val().lastName);
         setBatchID(snapshot.val().batchID);
       });
+
+      const userID = auth.currentUser.uid;
+      const imageRef = ref_storage(storage, 'users/'+userID+'/'+'image.png');
+      getDownloadURL(imageRef)
+      .then((url) => {
+        // const img = document.getElementById('avatar');
+        // img.setAttribute = url;
+        setUrl(url);
+        console.log(url);
+      }).catch((error) => {
+        console.log(error.message, "error getting the image url");
+      });
+
+
+
     } else {
       console.log("No user is signed in.")
     }
