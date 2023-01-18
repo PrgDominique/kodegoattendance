@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 
 
+const handleChange = () => {
 
+}
 
 
 const ChangePassword = () => {
@@ -15,43 +17,6 @@ const ChangePassword = () => {
     const user = auth.currentUser;
     const [newPassword, setPass] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState("");
-
-    const credential = EmailAuthProvider.credential(
-      user.email,
-      user.password
-    );
-    
-    
-
-  const reAuth = async (e) => {
-    e.preventDefault()
-    reauthenticateWithCredential(credential)
-      .then(() => {
-        
-      })
-      .then(() => {
-        console.log('Password updated successfully!');
-      })
-      .catch((error) => {
-        console.error('Error updating password:', error);
-      });
-  }
-
-  const handleChange = async (e) => {
-    e.preventDefault()
-    updatePassword(newPassword).then(() => {
-      console.log("Success")
-  }).catch((error) => {
-    reAuth();
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-  });
-    
-    
-    
-    
-}
     
    
   return (

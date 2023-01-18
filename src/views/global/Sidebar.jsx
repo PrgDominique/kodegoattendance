@@ -131,7 +131,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  Kodego Attendance
+                  KodeGo Attendance
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -164,7 +164,7 @@ const Sidebar = () => {
                 </Box>
                 <Box sx={{marginTop: 2}}>
 
-                <Typography variant="h2" color={colors.greenAccent[500]}>
+                <Typography variant="h4" color={colors.greenAccent[500]}>
                  {batchID}
                 </Typography>
                 </Box>
