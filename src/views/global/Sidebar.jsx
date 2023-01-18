@@ -10,9 +10,10 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import { auth } from "../../firebase";
-import { getDatabase, ref, set, equalTo, child,get } from "firebase/database";
+import { getDatabase, ref as ref_database, set, equalTo, child,get } from "firebase/database";
 import { UserAuth } from "../../context/AuthContext";
 import Avatar from "@mui/material/Avatar";
+import { ref as ref_storage,getDownloadURL,getStorage} from "firebase/storage";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -42,8 +43,21 @@ const Sidebar = () => {
   const [batchID, setBatchID] = useState("");
   const navigate = useNavigate();
   const db = getDatabase();
-
   const { logout } = UserAuth();
+  const storage = getStorage();
+  const userID = auth.currentUser.uid;
+  const imageRef = ref_storage(storage, 'users/'+userID+'/'+'image.png');
+  const [url, setUrl] = useState();
+ 
+  getDownloadURL(imageRef)
+    .then((url) => {
+      // const img = document.getElementById('avatar');
+      // img.setAttribute = url;
+      setUrl(url);
+      console.log(url);
+    }).catch((error) => {
+      console.log(error.message, "error getting the image url");
+    });
 
   const handleLogout = async () => {
     try {
@@ -61,7 +75,7 @@ const Sidebar = () => {
     if (auth.currentUser) {
 
       const userId = auth.currentUser.uid;
-      const userRef = ref(db, 'users');
+      const userRef = ref_database(db, 'users');
       get(child(userRef, `${userId}`)).then((snapshot) => {
         setFirstName(snapshot.val().firstName);
         setLastName(snapshot.val().lastName);
@@ -125,7 +139,7 @@ const Sidebar = () => {
               <Box display="flex" justifyContent="center" alignItems="center">
               <Avatar
                   alt=""
-                  src={`./srcs/assets/user.png`}
+                  src={url}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                   sx={{ width: 150, height: 150 }}
                 />
