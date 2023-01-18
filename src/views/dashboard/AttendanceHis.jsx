@@ -18,10 +18,11 @@ const AttendanceHis = () => {
 return (
  //Your code here
  <>
+
  <Box sx={{
     width: '100%',
     height: 600,
-   
+    
  }}>
    <Container maxWidth="lg" sx={{marginLeft: 40}}>
     </Container>

@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 const Logo = () => {
   return (
-    <AppBar sx={{width: 1840}} position="static">
+    <AppBar sx={{width: 1660}} position="static">
       <Container>
         <center>
           <img
