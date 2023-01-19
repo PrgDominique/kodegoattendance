@@ -23,10 +23,10 @@ return (
     height: 600,
    
  }}>
-    <Container maxWidth="lg" sx={{marginTop: 25, marginLeft: 20}}>
- <DataTable />
-
+   <Container maxWidth="lg" sx={{marginLeft: 40}}>
+        <PieChart />
     </Container>
+ <DataTable />
 
  </Box>
  </>
