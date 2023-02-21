@@ -1,4 +1,17 @@
 # Attendance Monitoring System
 
-A student attendance monitoring system is a software or hardware system used to track and record the attendance of students in a school or educational institution. This can include time-in and time-out. The student attendance monitoring system can be used to ensure compliance with school attendance policies and to track student engagement in the classroom. This system can also be used to monitor student absenteeism and tardiness, which can be early indicators of possible academic or behavioral issues. There are various types of student attendance monitoring systems available, including biometric systems, RFID systems, and software systems that integrate with other student information systems. These systems can be accessed by teachers, administrators, and parents to monitor attendance and to identify patterns of absenteeism.
+>A student attendance monitoring system is a software or hardware-based system used to keep track of students' attendance in educational institutions. It can record the time students enter and leave the school, which helps ensure compliance with attendance policies and monitor classroom engagement. This system can also identify potential academic or behavioral issues by tracking student absenteeism and tardiness.
+
+>There are different types of student attendance monitoring systems available, such as biometric and RFID systems, as well as software systems that integrate with other student information systems. These monitoring systems can be accessed by teachers, administrators, and parents to monitor attendance and identify patterns of absenteeism.
+
+>Overall, a student attendance monitoring system is an essential tool for schools and educational institutions to help ensure that students attend classes regularly, engage in their learning, and identify any underlying issues that may impact their academic success.
+
+
+## 💻 Tech Stack
+> - React
+> - Material UI
+> - Firebase
+
+## 👨‍🏫 Instructor
+> PocketDevs CEO & Co-founder **[Bryl Lim](https://github.com/bryllim)**
 
